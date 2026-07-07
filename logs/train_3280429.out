@@ -1,0 +1,12 @@
+==== train_gpt ====
+Job 3280429 on adroit-h11g2
+Profile: pilot  GPUs: MIG-19fe1503-24a5-56f6-999c-099d9b4e1eec  Start: Sat Jun 20 09:23:26 PM EDT 2026
+name, memory.total [MiB]
+NVIDIA A100-PCIE-40GB, 40960 MiB
+[train] 120000 games -> 110000 train / 10000 val
+Dataset created has 110000 sequences, 61 unique words.
+[train] profile=pilot epochs=40 batch_size=1024 gpus=1
+[train] training done in 6825s -> /scratch/network/ak9088/Gemma/othello-gemma/ckpts/gpt_synthetic_pilot.ckpt
+[train] LEGAL-MOVE ERROR = 2.8385%  (57266/58939 legal)
+[train] wrote /scratch/network/ak9088/Gemma/othello-gemma/results/gpt_pilot_eval.json
+Finished: Sat Jun 20 11:22:16 PM EDT 2026

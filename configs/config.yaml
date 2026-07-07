@@ -1,0 +1,75 @@
+# Othello-GPT reproduction on Adroit — all experiment knobs in one place.
+# Faithful re-creation of Li et al. 2023 (arXiv:2210.13382), synthetic track.
+
+paths:
+  root:        /scratch/network/ak9088/Gemma/othello-gemma
+  upstream:    /scratch/network/ak9088/Gemma/othello-gemma/upstream
+  data_dir:    /scratch/network/ak9088/Gemma/othello-gemma/data
+  ckpt_dir:    /scratch/network/ak9088/Gemma/othello-gemma/ckpts
+  results_dir: /scratch/network/ak9088/Gemma/othello-gemma/results
+  hf_cache:    /scratch/network/ak9088/Gemma/hf_cache
+
+# Active profile selects the data/training scale. The pilot smoke-tests the
+# whole pipeline cheaply; full reproduces the paper.
+profile: pilot
+
+data:
+  seed: 13
+  shard_size: 100000        # games per pickle shard
+  val_games: 10000          # games held out for validation / probing
+  pilot:
+    n_games: 120000         # ~100k after dedup
+  full:
+    n_games: 23000000       # ~20M train + val after dedup (paper scale)
+
+model:                       # Othello-GPT architecture (paper-exact)
+  n_layer: 8
+  n_head: 8
+  n_embd: 512
+  block_size: 59             # max game length 60 -> 59 autoregressive targets
+  vocab_size: 61             # -100 (pad/ignore -> idx 0) + 60 non-center tiles
+
+train:
+  seed: 44                   # matches upstream notebook set_seed(44)
+  learning_rate: 0.0005      # 5e-4
+  betas: [0.9, 0.95]
+  grad_norm_clip: 1.0
+  weight_decay: 0.0
+  num_workers: 16
+  pilot:
+    max_epochs: 40
+    batch_size: 1024         # single GPU
+  full:
+    # Paper used 250 epochs over 20M games, but that is ~440 GPU-h here and
+    # Adroit caps GPU jobs at 48h. At measured 2xA100 throughput (~106 min/epoch)
+    # Measured ~121-130 min/epoch on 2xA100 (5612 it/epoch at batch 4096), so
+    # 20 epochs (~43h) finishes cleanly inside the 47h walltime with buffer for
+    # startup + final eval -> ~460M game-presentations (~105x the pilot).
+    max_epochs: 20
+    batch_size: 4096         # paper's effective batch (512*8); fits A100-80GB
+
+eval:
+  n_val_games: 1000          # autoregressive legal-move check over this many val games
+
+probe:
+  layers: [1, 2, 3, 4, 5, 6, 7, 8]   # probe after each transformer block
+  exp: state                          # board-state (3-class) probe target
+  epochs: 150                         # cosine schedule; 16 under-trains nonlinear
+  mid_dim: 128                        # nonlinear (2-layer MLP) hidden size
+  max_probe_games: 2000               # val games to extract activations from
+  batch_size: 1024
+
+intervene:
+  layer_s: 4                 # earliest layer to intervene (paper propagates 4..8)
+  layer_e: 9                 # exclusive upper bound -> layers 4,5,6,7,8
+  mid_dim: 128               # intervention probes use mid_dim 128 (notebook setting)
+  probe_epochs: 150          # cosine; under-trained probes make intervention inert
+  n_cases: 200               # benchmark cases (full set has 1001)
+  lr: 0.001                  # intervene() optimiser lr (notebook htd)
+  reg_strength: 0.2
+  steps: 1000
+
+# Mandatory per user: email on completion no matter the outcome.
+email:
+  address: "alexeikorolev7@gmail.com,ak9088@princeton.edu"
+  mail_type: "END,FAIL,TIME_LIMIT"

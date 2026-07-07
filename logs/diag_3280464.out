@@ -1,0 +1,11 @@
+Job 3280464 on adroit-h11g2  Start: Sat Jun 20 11:40:34 PM EDT 2026
+[diag] layer 6: 176808 samples
+
+probe      epochs  mid      lr    sched     err%
+linear         16    0   1e-03  plateau   23.04%
+nonlin         16   64   1e-03  plateau   17.27%
+nonlin         60   64   1e-03     none   13.40%
+nonlin        150  128   1e-03   cosine    1.73%
+nonlin        150  256   1e-03   cosine    0.68%
+nonlin        300  256   1e-03   cosine    0.68%
+Finished: Sat Jun 20 11:55:30 PM EDT 2026

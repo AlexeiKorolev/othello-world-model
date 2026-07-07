@@ -1,0 +1,33 @@
+==== validate_pretrained ====
+Job 3280430 on adroit-h11g2
+Profile: pilot  Start: Sat Jun 20 09:23:26 PM EDT 2026
+NVIDIA A100-PCIE-40GB
+[validate] loading /scratch/network/ak9088/Gemma/othello-gemma/ckpts/pretrained/synthetic_model.pth
+Dataset created has 50 sequences, 61 unique words.
+[validate] LEGAL-MOVE ERROR = 0.0170%  (58929/58939)
+Decayed: {'proj.weight', 'proj.bias'}
+Decayed: {'proj.0.bias', 'proj.2.bias', 'proj.2.weight', 'proj.0.weight'}
+[validate] layer 1: linear 22.90%  nonlinear 23.22%
+Decayed: {'proj.weight', 'proj.bias'}
+Decayed: {'proj.0.bias', 'proj.2.bias', 'proj.2.weight', 'proj.0.weight'}
+[validate] layer 2: linear 22.66%  nonlinear 22.86%
+Decayed: {'proj.weight', 'proj.bias'}
+Decayed: {'proj.0.bias', 'proj.2.bias', 'proj.2.weight', 'proj.0.weight'}
+[validate] layer 3: linear 22.62%  nonlinear 17.90%
+Decayed: {'proj.weight', 'proj.bias'}
+Decayed: {'proj.0.bias', 'proj.2.bias', 'proj.2.weight', 'proj.0.weight'}
+[validate] layer 4: linear 22.59%  nonlinear 16.83%
+Decayed: {'proj.weight', 'proj.bias'}
+Decayed: {'proj.0.bias', 'proj.2.bias', 'proj.2.weight', 'proj.0.weight'}
+[validate] layer 5: linear 22.51%  nonlinear 15.64%
+Decayed: {'proj.weight', 'proj.bias'}
+Decayed: {'proj.0.bias', 'proj.2.bias', 'proj.2.weight', 'proj.0.weight'}
+[validate] layer 6: linear 22.56%  nonlinear 18.00%
+Decayed: {'proj.weight', 'proj.bias'}
+Decayed: {'proj.0.bias', 'proj.2.bias', 'proj.2.weight', 'proj.0.weight'}
+[validate] layer 7: linear 22.78%  nonlinear 19.84%
+Decayed: {'proj.weight', 'proj.bias'}
+Decayed: {'proj.0.bias', 'proj.2.bias', 'proj.2.weight', 'proj.0.weight'}
+[validate] layer 8: linear 22.94%  nonlinear 22.53%
+[validate] wrote /scratch/network/ak9088/Gemma/othello-gemma/results/validate_pretrained.json
+Finished: Sat Jun 20 09:32:20 PM EDT 2026

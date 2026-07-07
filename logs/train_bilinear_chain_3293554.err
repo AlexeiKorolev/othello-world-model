@@ -1,0 +1,60 @@
+  0%|          | 0/5612 [00:00<?, ?it/s]  0%|          | 0/5612 [00:01<?, ?it/s]
+Traceback (most recent call last):
+  File "/scratch/network/ak9088/Gemma/othello-gemma/src/train_gpt.py", line 172, in <module>
+    main()
+  File "/scratch/network/ak9088/Gemma/othello-gemma/src/train_gpt.py", line 139, in main
+    complete = trainer.train(wall_budget_sec=budget)
+  File "/scratch/network/ak9088/Gemma/othello-gemma/src/resumable_trainer.py", line 123, in train
+    self._run_epoch(optimizer, epoch)
+  File "/scratch/network/ak9088/Gemma/othello-gemma/src/resumable_trainer.py", line 94, in _run_epoch
+    _, loss = model(x, y)
+  File "/scratch/network/ak9088/Gemma/othello-gemma/env/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/scratch/network/ak9088/Gemma/othello-gemma/env/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/scratch/network/ak9088/Gemma/othello-gemma/env/lib/python3.10/site-packages/torch/nn/parallel/data_parallel.py", line 186, in forward
+    outputs = self.parallel_apply(replicas, inputs, module_kwargs)
+  File "/scratch/network/ak9088/Gemma/othello-gemma/env/lib/python3.10/site-packages/torch/nn/parallel/data_parallel.py", line 201, in parallel_apply
+    return parallel_apply(replicas, inputs, kwargs, self.device_ids[:len(replicas)])
+  File "/scratch/network/ak9088/Gemma/othello-gemma/env/lib/python3.10/site-packages/torch/nn/parallel/parallel_apply.py", line 109, in parallel_apply
+    output.reraise()
+  File "/scratch/network/ak9088/Gemma/othello-gemma/env/lib/python3.10/site-packages/torch/_utils.py", line 706, in reraise
+    raise exception
+torch.OutOfMemoryError: Caught OutOfMemoryError in replica 0 on device 0.
+Original Traceback (most recent call last):
+  File "/scratch/network/ak9088/Gemma/othello-gemma/env/lib/python3.10/site-packages/torch/nn/parallel/parallel_apply.py", line 84, in _worker
+    output = module(*input, **kwargs)
+  File "/scratch/network/ak9088/Gemma/othello-gemma/env/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/scratch/network/ak9088/Gemma/othello-gemma/env/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/scratch/network/ak9088/Gemma/othello-gemma/upstream/mingpt/model.py", line 188, in forward
+    x = self.blocks(x)
+  File "/scratch/network/ak9088/Gemma/othello-gemma/env/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/scratch/network/ak9088/Gemma/othello-gemma/env/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/scratch/network/ak9088/Gemma/othello-gemma/env/lib/python3.10/site-packages/torch/nn/modules/container.py", line 219, in forward
+    input = module(input)
+  File "/scratch/network/ak9088/Gemma/othello-gemma/env/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/scratch/network/ak9088/Gemma/othello-gemma/env/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/scratch/network/ak9088/Gemma/othello-gemma/upstream/mingpt/model.py", line 94, in forward
+    x = x + self.mlp(self.ln2(x))
+  File "/scratch/network/ak9088/Gemma/othello-gemma/env/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/scratch/network/ak9088/Gemma/othello-gemma/env/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/scratch/network/ak9088/Gemma/othello-gemma/src/bilinear_model.py", line 38, in forward
+    return self.drop(self.proj(self.w(x) * self.v(x)))
+  File "/scratch/network/ak9088/Gemma/othello-gemma/env/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/scratch/network/ak9088/Gemma/othello-gemma/env/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/scratch/network/ak9088/Gemma/othello-gemma/env/lib/python3.10/site-packages/torch/nn/modules/dropout.py", line 59, in forward
+    return F.dropout(input, self.p, self.training, self.inplace)
+  File "/scratch/network/ak9088/Gemma/othello-gemma/env/lib/python3.10/site-packages/torch/nn/functional.py", line 1295, in dropout
+    return _VF.dropout_(input, p, training) if inplace else _VF.dropout(input, p, training)
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 236.00 MiB. GPU 0 has a total capacity of 31.73 GiB of which 128.25 MiB is free. Including non-PyTorch memory, this process has 31.60 GiB memory in use. Of the allocated memory 30.85 GiB is allocated by PyTorch, and 325.76 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+

@@ -1,0 +1,8 @@
+[timing] GPUs visible: 2
+    NVIDIA A100 80GB PCIe
+    NVIDIA A100 80GB PCIe
+Dataset created has 120000 sequences, 61 unique words.
+
+[timing] batch=4096 gpus=2: 0.77 it/s (1300 ms/it)
+[timing] full 20M: 4883 it/epoch -> 105.8 min/epoch
+[timing] 250 epochs -> 440.7 h (48h cap fits ~27 epochs)

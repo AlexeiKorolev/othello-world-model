@@ -1,0 +1,9 @@
+{
+  "profile": "pilot",
+  "arch": "bilinear",
+  "expansion": 2.6666667,
+  "legal_move_error": 0.03539252447445662,
+  "legal": 56853,
+  "total": 58939,
+  "ckpt": "/scratch/network/ak9088/Gemma/othello-gemma/ckpts/gpt_synthetic_pilot_bilinear.ckpt"
+}

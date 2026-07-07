@@ -1,0 +1,12 @@
+==== intervene ====
+Job 3280469 on adroit-h11g2
+Profile: pilot  Start: Sat Jun 20 11:52:09 PM EDT 2026
+NVIDIA A100-PCIE-40GB
+[intervene] trained probe at layer 4
+[intervene] trained probe at layer 5
+[intervene] trained probe at layer 6
+[intervene] trained probe at layer 7
+[intervene] trained probe at layer 8
+[intervene] intervened err 1.805 vs baseline 2.165  (paper: ~0.12 vs ~2.68)
+[intervene] wrote /scratch/network/ak9088/Gemma/othello-gemma/results/intervention_pilot.json
+Finished: Sun Jun 21 12:15:40 AM EDT 2026

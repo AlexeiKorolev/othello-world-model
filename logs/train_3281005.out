@@ -1,0 +1,9 @@
+==== train_gpt ====
+Job 3281005 on adroit-h11g1
+Profile: full  GPUs: 0,1  Start: Sun Jun 21 07:39:53 PM EDT 2026
+name, memory.total [MiB]
+NVIDIA A100 80GB PCIe, 81920 MiB
+NVIDIA A100 80GB PCIe, 81920 MiB
+[train] 22996015 games -> 22986015 train / 10000 val
+Dataset created has 22986015 sequences, 61 unique words.
+[train] profile=full epochs=24 batch_size=4096 gpus=2

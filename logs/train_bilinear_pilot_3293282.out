@@ -1,0 +1,13 @@
+==== train_gpt bilinear PILOT ====
+Job 3293282 on adroit-h11g2
+Profile: pilot  GPUs: MIG-19fe1503-24a5-56f6-999c-099d9b4e1eec  Start: Wed Jul  1 03:29:19 AM EDT 2026
+name, memory.total [MiB]
+NVIDIA A100-PCIE-40GB, 40960 MiB
+[train] 120000 games -> 110000 train / 10000 val
+Dataset created has 110000 sequences, 61 unique words.
+[train] BILINEAR MLPs (expansion=2.6667); params=25.3M
+[train] profile=pilot epochs=40 batch_size=1024 gpus=1
+[train] training done in 6924s -> /scratch/network/ak9088/Gemma/othello-gemma/ckpts/gpt_synthetic_pilot_bilinear.ckpt
+[train] LEGAL-MOVE ERROR = 3.5393%  (56853/58939 legal)
+[train] wrote /scratch/network/ak9088/Gemma/othello-gemma/results/gpt_pilot_bilinear_eval.json
+Finished: Wed Jul  1 05:30:27 AM EDT 2026

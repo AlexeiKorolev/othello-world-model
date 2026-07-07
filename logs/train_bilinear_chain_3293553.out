@@ -1,0 +1,11 @@
+==== train_gpt bilinear CHAIN chunk ====
+Job 3293553 on adroit-h11g3
+Profile: full  GPUs: 0,1  Start: Thu Jul  2 11:25:15 AM EDT 2026
+name, memory.total [MiB]
+Tesla V100-PCIE-32GB, 32768 MiB
+Tesla V100-PCIE-32GB, 32768 MiB
+[train] 22996015 games -> 22986015 train / 10000 val
+Dataset created has 22986015 sequences, 61 unique words.
+[train] BILINEAR MLPs (expansion=2.6667); params=25.3M
+[train] profile=full epochs=20 batch_size=4096 gpus=2
+[chain] python failed with code 1 (Thu Jul  2 11:29:10 AM EDT 2026)

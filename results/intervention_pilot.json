@@ -1,0 +1,11 @@
+{
+  "profile": "pilot",
+  "n_cases": 200,
+  "intervened_error_mean": 1.805,
+  "baseline_error_mean": 2.165,
+  "intervened_error_std": 1.0329448194361595,
+  "baseline_error_std": 1.0038799729051278,
+  "layer_s": 4,
+  "layer_e": 9,
+  "metric": "top-N illegal count"
+}

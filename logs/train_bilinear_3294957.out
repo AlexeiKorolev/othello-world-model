@@ -1,0 +1,28 @@
+==== train_gpt (bilinear) ====
+Job 3294957 on adroit-h11g1
+Profile: full  GPUs: 0,1  Start: Sun Jul  5 12:48:48 PM EDT 2026
+name, memory.total [MiB]
+NVIDIA A100 80GB PCIe, 81920 MiB
+NVIDIA A100 80GB PCIe, 81920 MiB
+[train] 22996015 games -> 22986015 train / 10000 val
+Dataset created has 22986015 sequences, 61 unique words.
+[train] BILINEAR MLPs (expansion=2.6667); params=25.3M
+[train] profile=full epochs=20 batch_size=4096 gpus=2
+[resume] completed epoch 1/20; state saved
+[resume] completed epoch 2/20; state saved
+[resume] completed epoch 3/20; state saved
+[resume] completed epoch 4/20; state saved
+[resume] completed epoch 5/20; state saved
+[resume] completed epoch 6/20; state saved
+[resume] completed epoch 7/20; state saved
+[resume] completed epoch 8/20; state saved
+[resume] completed epoch 9/20; state saved
+[resume] completed epoch 10/20; state saved
+[resume] completed epoch 11/20; state saved
+[resume] completed epoch 12/20; state saved
+[resume] completed epoch 13/20; state saved
+[resume] completed epoch 14/20; state saved
+[resume] completed epoch 15/20; state saved
+[resume] completed epoch 16/20; state saved
+[resume] completed epoch 17/20; state saved
+[resume] completed epoch 18/20; state saved

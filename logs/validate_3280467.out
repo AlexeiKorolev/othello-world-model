@@ -1,0 +1,17 @@
+==== validate_pretrained ====
+Job 3280467 on adroit-h11g2
+Profile: pilot  Start: Sat Jun 20 11:52:09 PM EDT 2026
+NVIDIA A100-PCIE-40GB
+[validate] loading /scratch/network/ak9088/Gemma/othello-gemma/ckpts/pretrained/synthetic_model.pth
+Dataset created has 50 sequences, 61 unique words.
+[validate] LEGAL-MOVE ERROR = 0.0170%  (58929/58939)
+[validate] layer 1: linear 22.70%  nonlinear 10.75%
+[validate] layer 2: linear 22.54%  nonlinear 6.74%
+[validate] layer 3: linear 22.52%  nonlinear 3.85%
+[validate] layer 4: linear 22.51%  nonlinear 2.71%
+[validate] layer 5: linear 22.39%  nonlinear 1.80%
+[validate] layer 6: linear 22.40%  nonlinear 1.43%
+[validate] layer 7: linear 22.48%  nonlinear 3.58%
+[validate] layer 8: linear 22.55%  nonlinear 5.49%
+[validate] wrote /scratch/network/ak9088/Gemma/othello-gemma/results/validate_pretrained.json
+Finished: Sun Jun 21 12:30:15 AM EDT 2026

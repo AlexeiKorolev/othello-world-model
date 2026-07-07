@@ -1,0 +1,12 @@
+{
+  "profile": "full",
+  "n_cases": 200,
+  "probe": "linear_mine_yours",
+  "intervened_error_mean": 0.695,
+  "baseline_error_mean": 1.365,
+  "intervened_error_std": 0.5495225200116916,
+  "baseline_error_std": 0.6338572394474957,
+  "layer_s": 4,
+  "layer_e": 9,
+  "metric": "top-N illegal count"
+}

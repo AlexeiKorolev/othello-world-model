@@ -1,0 +1,15 @@
+==== train_probe ====
+Job 3280468 on adroit-h11g2
+Profile: pilot  Args:   Start: Sat Jun 20 11:52:09 PM EDT 2026
+[probe] loaded /scratch/network/ak9088/Gemma/othello-gemma/ckpts/gpt_synthetic_pilot.ckpt
+[probe] extracted 117858 positions x 64 tiles in 12s
+[probe] layer 1: linear err 20.47%  nonlinear err 16.14%
+[probe] layer 2: linear err 19.29%  nonlinear err 12.89%
+[probe] layer 3: linear err 19.43%  nonlinear err 11.54%
+[probe] layer 4: linear err 19.61%  nonlinear err 10.89%
+[probe] layer 5: linear err 19.85%  nonlinear err 10.56%
+[probe] layer 6: linear err 20.09%  nonlinear err 11.40%
+[probe] layer 7: linear err 20.31%  nonlinear err 11.62%
+[probe] layer 8: linear err 20.52%  nonlinear err 11.65%
+[probe] best nonlinear: layer 5 err 10.56%  -> /scratch/network/ak9088/Gemma/othello-gemma/results/probe_pilot.json
+Finished: Sun Jun 21 12:25:43 AM EDT 2026

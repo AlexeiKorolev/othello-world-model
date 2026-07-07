@@ -1,0 +1,12 @@
+==== intervene_nanda ====
+Job 3293281 on adroit-h11g3
+Profile: full  Start: Wed Jul  1 03:58:19 AM EDT 2026
+Tesla V100-PCIE-32GB
+[intervene-nanda] trained LINEAR mine/yours probe at layer 4
+[intervene-nanda] trained LINEAR mine/yours probe at layer 5
+[intervene-nanda] trained LINEAR mine/yours probe at layer 6
+[intervene-nanda] trained LINEAR mine/yours probe at layer 7
+[intervene-nanda] trained LINEAR mine/yours probe at layer 8
+[intervene-nanda] LINEAR mine/yours intervention: intervened err 0.695 vs baseline 1.365
+[intervene-nanda] wrote /scratch/network/ak9088/Gemma/othello-gemma/results/intervention_nanda_full.json
+Finished: Wed Jul  1 04:25:29 AM EDT 2026

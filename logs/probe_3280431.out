@@ -1,0 +1,31 @@
+==== train_probe ====
+Job 3280431 on adroit-h11g2
+Profile: pilot  Args:   Start: Sat Jun 20 11:22:30 PM EDT 2026
+[probe] loaded /scratch/network/ak9088/Gemma/othello-gemma/ckpts/gpt_synthetic_pilot.ckpt
+[probe] extracted 117858 positions x 64 tiles in 12s
+Decayed: {'proj.bias', 'proj.weight'}
+Decayed: {'proj.0.weight', 'proj.2.weight', 'proj.0.bias', 'proj.2.bias'}
+[probe] layer 1: linear err 21.67%  nonlinear err 22.93%
+Decayed: {'proj.bias', 'proj.weight'}
+Decayed: {'proj.0.weight', 'proj.2.weight', 'proj.0.bias', 'proj.2.bias'}
+[probe] layer 2: linear err 19.53%  nonlinear err 21.71%
+Decayed: {'proj.bias', 'proj.weight'}
+Decayed: {'proj.0.weight', 'proj.2.weight', 'proj.0.bias', 'proj.2.bias'}
+[probe] layer 3: linear err 19.57%  nonlinear err 21.49%
+Decayed: {'proj.bias', 'proj.weight'}
+Decayed: {'proj.0.weight', 'proj.2.weight', 'proj.0.bias', 'proj.2.bias'}
+[probe] layer 4: linear err 19.77%  nonlinear err 21.57%
+Decayed: {'proj.bias', 'proj.weight'}
+Decayed: {'proj.0.weight', 'proj.2.weight', 'proj.0.bias', 'proj.2.bias'}
+[probe] layer 5: linear err 20.04%  nonlinear err 21.70%
+Decayed: {'proj.bias', 'proj.weight'}
+Decayed: {'proj.0.weight', 'proj.2.weight', 'proj.0.bias', 'proj.2.bias'}
+[probe] layer 6: linear err 20.27%  nonlinear err 20.81%
+Decayed: {'proj.bias', 'proj.weight'}
+Decayed: {'proj.0.weight', 'proj.2.weight', 'proj.0.bias', 'proj.2.bias'}
+[probe] layer 7: linear err 20.51%  nonlinear err 22.31%
+Decayed: {'proj.bias', 'proj.weight'}
+Decayed: {'proj.0.weight', 'proj.2.weight', 'proj.0.bias', 'proj.2.bias'}
+[probe] layer 8: linear err 20.74%  nonlinear err 22.26%
+[probe] best nonlinear: layer 6 err 20.81%  -> /scratch/network/ak9088/Gemma/othello-gemma/results/probe_pilot.json
+Finished: Sat Jun 20 11:26:23 PM EDT 2026

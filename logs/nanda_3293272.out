@@ -1,0 +1,16 @@
+==== nanda_probe ====
+Job 3293272 on adroit-h11g3
+Profile: full  Args:   Start: Wed Jul  1 02:27:18 AM EDT 2026
+[nanda] loaded /scratch/network/ak9088/Gemma/othello-gemma/ckpts/gpt_synthetic_full.ckpt
+[nanda] extracted 117961 positions x 64 tiles in 18s
+[nanda] layer 1: linear mine/yours 9.56%  linear absolute 19.28%
+[nanda] layer 2: linear mine/yours 6.03%  linear absolute 18.50%
+[nanda] layer 3: linear mine/yours 3.59%  linear absolute 18.22%
+[nanda] layer 4: linear mine/yours 2.38%  linear absolute 18.18%
+[nanda] layer 5: linear mine/yours 1.56%  linear absolute 17.70%
+[nanda] layer 6: linear mine/yours 1.12%  linear absolute 17.60%
+[nanda] layer 7: linear mine/yours 0.99%  linear absolute 17.72%
+[nanda] layer 8: linear mine/yours 1.03%  linear absolute 17.76%
+[nanda] best linear mine/yours: layer 7 err 0.99%  -> /scratch/network/ak9088/Gemma/othello-gemma/results/nanda_probe_full.json
+[nanda] wrote /scratch/network/ak9088/Gemma/othello-gemma/results/nanda_probe_full.png
+Finished: Wed Jul  1 03:06:48 AM EDT 2026

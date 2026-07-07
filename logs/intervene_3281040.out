@@ -1,0 +1,12 @@
+==== intervene ====
+Job 3281040 on adroit-h11g3
+Profile: full  Start: Tue Jun 23 04:39:28 PM EDT 2026
+Tesla V100-PCIE-32GB
+[intervene] trained probe at layer 4
+[intervene] trained probe at layer 5
+[intervene] trained probe at layer 6
+[intervene] trained probe at layer 7
+[intervene] trained probe at layer 8
+[intervene] intervened err 0.925 vs baseline 1.365  (paper: ~0.12 vs ~2.68)
+[intervene] wrote /scratch/network/ak9088/Gemma/othello-gemma/results/intervention_full.json
+Finished: Tue Jun 23 05:08:46 PM EDT 2026
