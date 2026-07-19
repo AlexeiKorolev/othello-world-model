@@ -1,0 +1,13 @@
+==== bilinear_eigen ====
+Job 3297635 on adroit-h11g2
+Profile: full  Args: --output-mode unembed  Start: Tue Jul  7 10:23:02 PM EDT 2026
+name, memory.total [MiB]
+NVIDIA A100-PCIE-40GB, 40960 MiB
+[eigen] loaded /scratch/network/ak9088/Gemma/othello-gemma/ckpts/gpt_synthetic_full_bilinear.ckpt
+[eigen] extracted 117961 positions in 53s
+[eigen] board subspace in ln2-space: rank 64, chance frac 0.125 (board probe on MLP input: 2.02%)
+[eigen] scoring 54 move tokens (0.02<legal-rate<0.98)
+[eigen] UNEMBED final layer 8: legal|corr|(med) 0.194  eff_rank(med) 1.2  recon@2 0.625  legal@8 0.168  board_align(top8) 0.054 (=0.4x chance 0.125)
+[eigen] wrote /scratch/network/ak9088/Gemma/othello-gemma/results/bilinear_eigen_full_bilinear_unembed.json
+[eigen] figure: /scratch/network/ak9088/Gemma/othello-gemma/results/bilinear_eigen_full_bilinear_unembed_recon.png
+Finished: Tue Jul  7 10:26:05 PM EDT 2026

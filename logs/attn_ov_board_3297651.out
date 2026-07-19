@@ -1,0 +1,24 @@
+==== attn_ov_board ====
+Job 3297651 on adroit-h11g1
+Profile: full  Args: --arch bilinear  Start: Tue Jul  7 11:29:20 PM EDT 2026
+name, memory.total [MiB]
+NVIDIA A100 80GB PCIe, 81920 MiB
+[ov] loaded /scratch/network/ak9088/Gemma/othello-gemma/ckpts/gpt_synthetic_full_bilinear.ckpt (arch=bilinear)
+[ov] extracted 117961 positions in 10s
+[ov] final board readout 2.08%; board rank 64, chance out 0.125 io 0.0156
+[ov] top heads by board->board io_frac (x chance):
+    A5.h3    io 0.196 ( 12.5x)  out 0.285 ( 2.3x)  board_corr 0.58
+    A6.h0    io 0.154 (  9.9x)  out 0.261 ( 2.1x)  board_corr 0.57
+    A1.h1    io 0.137 (  8.8x)  out 0.193 ( 1.5x)  board_corr 0.25
+    A1.h4    io 0.133 (  8.5x)  out 0.199 ( 1.6x)  board_corr 0.22
+    A4.h6    io 0.106 (  6.8x)  out 0.246 ( 2.0x)  board_corr 0.29
+    A1.h0    io 0.094 (  6.0x)  out 0.147 ( 1.2x)  board_corr 0.11
+    A2.h3    io 0.091 (  5.8x)  out 0.198 ( 1.6x)  board_corr 0.25
+    A3.h5    io 0.090 (  5.8x)  out 0.187 ( 1.5x)  board_corr 0.24
+    A1.h2    io 0.086 (  5.5x)  out 0.151 ( 1.2x)  board_corr 0.16
+    A3.h3    io 0.085 (  5.4x)  out 0.208 ( 1.7x)  board_corr 0.22
+[ov] wrote /scratch/network/ak9088/Gemma/othello-gemma/results/attn_ov_board_full_bilinear.json
+[ov] wrote /scratch/network/ak9088/Gemma/othello-gemma/results/attn_ov_board_full_bilinear_transfer.png
+[ov] A5.h3 transfer: mean|diag| 0.703 vs mean|off-diag| 0.073 (ratio 9.66)
+[ov] A6.h0 transfer: mean|diag| 0.756 vs mean|off-diag| 0.080 (ratio 9.46)
+Finished: Tue Jul  7 11:31:16 PM EDT 2026

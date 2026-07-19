@@ -1,0 +1,25 @@
+==== board_map ====
+Job 3297645 on adroit-h11g2
+Profile: full  Args: --arch bilinear  Start: Tue Jul  7 11:08:05 PM EDT 2026
+name, memory.total [MiB]
+NVIDIA A100-PCIE-40GB, 40960 MiB
+[map] loaded /scratch/network/ak9088/Gemma/othello-gemma/ckpts/gpt_synthetic_full_bilinear.ckpt (arch=bilinear)
+[map] linear mine/yours probe on resid8: 2.08%  (135s)
+[map] reconstruction corr (sum comps vs total), median tile: 1.0000
+[map] attn share 0.31  mlp share 0.69  emb share 0.00
+[map] top components by share:
+    M3       share +0.165  board_corr 0.084
+    M2       share +0.159  board_corr 0.064
+    M4       share +0.145  board_corr 0.129
+    M1       share +0.094  board_corr 0.107
+    M5       share +0.055  board_corr 0.196
+    M8       share +0.040  board_corr 0.009
+    M6       share +0.029  board_corr 0.028
+    A6.h0    share +0.023  board_corr 0.574
+    A5.h3    share +0.019  board_corr 0.583
+    A7.h5    share +0.017  board_corr 0.345
+    A6.h4    share +0.014  board_corr 0.174
+    A6.h3    share +0.010  board_corr 0.186
+[map] wrote /scratch/network/ak9088/Gemma/othello-gemma/results/board_map_full_bilinear.json
+[map] wrote /scratch/network/ak9088/Gemma/othello-gemma/results/board_map_full_bilinear.png
+Finished: Tue Jul  7 11:10:28 PM EDT 2026

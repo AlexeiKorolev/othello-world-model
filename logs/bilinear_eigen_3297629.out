@@ -1,0 +1,21 @@
+==== bilinear_eigen ====
+Job 3297629 on adroit-h11g2
+Profile: full  Args:   Start: Tue Jul  7 09:57:44 PM EDT 2026
+name, memory.total [MiB]
+NVIDIA A100-PCIE-40GB, 40960 MiB
+[eigen] loaded /scratch/network/ak9088/Gemma/othello-gemma/ckpts/gpt_synthetic_full_bilinear.ckpt
+[eigen] extracted 117961 positions x 64 tiles in 15s
+[eigen] L1: probe_err 9.66%  eff_rank(med) 31.6  board|corr|(med) 0.220  recon@2 0.306  board@2 0.211
+[eigen] L2: probe_err 6.97%  eff_rank(med) 20.5  board|corr|(med) 0.131  recon@2 0.222  board@2 0.094
+[eigen] L3: probe_err 4.53%  eff_rank(med) 17.8  board|corr|(med) 0.176  recon@2 0.174  board@2 0.113
+[eigen] L4: probe_err 3.15%  eff_rank(med) 14.6  board|corr|(med) 0.240  recon@2 0.291  board@2 0.102
+[eigen] L5: probe_err 2.44%  eff_rank(med) 13.3  board|corr|(med) 0.122  recon@2 0.326  board@2 0.133
+[eigen] L6: probe_err 2.04%  eff_rank(med) 12.7  board|corr|(med) 0.029  recon@2 0.375  board@2 0.219
+[eigen] L7: probe_err 2.03%  eff_rank(med) 35.0  board|corr|(med) 0.075  recon@2 0.294  board@2 0.155
+[eigen] L8: probe_err 2.08%  eff_rank(med) 13.6  board|corr|(med) 0.008  recon@2 0.834  board@2 0.013
+[eigen] wrote /scratch/network/ak9088/Gemma/othello-gemma/results/bilinear_eigen_full_bilinear.json
+[eigen] figures: /scratch/network/ak9088/Gemma/othello-gemma/results/bilinear_eigen_full_bilinear_recon.png
+/scratch/network/ak9088/Gemma/othello-gemma/results/bilinear_eigen_full_bilinear_effrank.png
+/scratch/network/ak9088/Gemma/othello-gemma/results/bilinear_eigen_full_bilinear_spectra.png
+[eigen] best board layer 4: board|corr|(med) 0.240, eff_rank(med) 14.6, board@2eig 0.102
+Finished: Tue Jul  7 10:14:58 PM EDT 2026

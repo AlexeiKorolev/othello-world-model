@@ -1,0 +1,15 @@
+==== train_probe ====
+Job 3297143 on adroit-h11g3
+Profile: full  Args: --arch bilinear  Start: Tue Jul  7 01:27:05 PM EDT 2026
+[probe] loaded /scratch/network/ak9088/Gemma/othello-gemma/ckpts/gpt_synthetic_full_bilinear.ckpt
+[probe] extracted 117961 positions x 64 tiles in 19s
+[probe] layer 1: linear err 18.38%  nonlinear err 10.44%
+[probe] layer 2: linear err 18.30%  nonlinear err 7.52%
+[probe] layer 3: linear err 17.88%  nonlinear err 5.13%
+[probe] layer 4: linear err 17.49%  nonlinear err 3.69%
+[probe] layer 5: linear err 16.81%  nonlinear err 3.00%
+[probe] layer 6: linear err 16.78%  nonlinear err 2.60%
+[probe] layer 7: linear err 16.98%  nonlinear err 2.60%
+[probe] layer 8: linear err 17.03%  nonlinear err 2.80%
+[probe] best nonlinear: layer 7 err 2.60%  -> /scratch/network/ak9088/Gemma/othello-gemma/results/probe_full_bilinear.json
+Finished: Tue Jul  7 02:10:07 PM EDT 2026

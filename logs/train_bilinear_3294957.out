@@ -26,3 +26,9 @@ Dataset created has 22986015 sequences, 61 unique words.
 [resume] completed epoch 16/20; state saved
 [resume] completed epoch 17/20; state saved
 [resume] completed epoch 18/20; state saved
+[resume] completed epoch 19/20; state saved
+[resume] completed epoch 20/20; state saved
+[train] all epochs done in this/earlier chunks -> /scratch/network/ak9088/Gemma/othello-gemma/ckpts/gpt_synthetic_full_bilinear.ckpt
+[train] LEGAL-MOVE ERROR = 0.0356%  (58930/58951 legal)
+[train] wrote /scratch/network/ak9088/Gemma/othello-gemma/results/gpt_full_bilinear_eval.json
+Finished: Tue Jul  7 06:46:33 AM EDT 2026

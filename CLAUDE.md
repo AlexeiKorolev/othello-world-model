@@ -51,10 +51,62 @@ plot_results. Profiles `pilot` (1 GPU, fast) and `full` (paper scale, multi-GPU)
   player-relative frame. Writeup `results/nanda_linear_probe.md`; data
   `results/nanda_probe_full.{json,png}`; code `src/nanda_probe.py`,
   `slurm/nanda_probe.slurm`.
-- **Bilinear-MLP GPT** — IN PROGRESS. Same arch, bilinear MLPs
+- **Bilinear-MLP GPT** — TRAINED (2026-07-07). Same arch, bilinear MLPs
   (arXiv:2410.08417), expansion 8/3 (param+FLOP-matched, 25.3M).
   `src/bilinear_model.py`, `src/train_gpt.py --arch bilinear`. Pilot verified it
-  learns (3.54% vs GELU 2.84%). Full run is a **single 47h job on 2xA100-80GB**:
+  learns (3.54% vs GELU 2.84%). **Full run done: legal-move error 0.036%**
+  (`results/gpt_full_bilinear_eval.json`) — matches GELU baseline 0.032%
+  (authors' anchor 0.017%), so bilinear solves the task as well as GELU.
+  ckpt `ckpts/gpt_synthetic_full_bilinear.ckpt`. **Probe comparison DONE** →
+  writeup `results/bilinear_comparison.md`. Nanda linearity reproduces (mine/yours
+  linear 2.03% @L7 vs absolute 16.8% = 8.3× gap); but bilinear board rep is ~2×
+  harder to read than GELU (nonlinear 2.60% vs 1.41%, mine/yours 2.03% vs 0.99%)
+  despite identical task error. Outputs `results/probe_full_bilinear.json`,
+  `results/nanda_probe_full_bilinear.{json,png}` vs GELU `probe_full.json`,
+  `nanda_probe_full.json`. (Gotcha: train_probe.slurm reads `PROBE_ARGS`,
+  nanda_probe.slurm reads `NANDA_ARGS` — different env vars.)
+- **Weight-space interpretability** — DONE. `src/bilinear_eigen.py`
+  (`--output-mode {board,unembed}`), `slurm/bilinear_eigen.slurm`. Folds each
+  bilinear MLP into the exact quadratic form `u.MLP(x)=x^T Q_u x=sum lambda_i
+  (q_i.x)^2` (identity verified 1e-6) and eigendecomposes vs an output direction.
+  **Finding (writeup `results/weight_space_interpretability.md`):** the emergent
+  board world-model is a RESIDUAL/ATTENTION phenomenon, NOT in the MLP weights.
+  board mode: deep-MLP contribution to board dirs ~0 (L6-8 board|corr| 0.03/0.08/
+  0.008) even though board is ~2% probe-decodable there. unembed mode (final layer
+  vs move-legality logits, the model-native basis): MLP is strikingly low-rank
+  (eff_rank med 1.2, recon@2 0.62 — the paper's structure, appears ONLY in native
+  basis) BUT legality eigenfeatures are board-ANTI-aligned (0.054 vs chance 0.125)
+  and weakly predict legality (0.19). So bilinear MLPs do clean low-rank corrective
+  ops orthogonal to the board; the world model isn't in them. Outputs
+  `results/bilinear_eigen_full_bilinear{,_unembed}.json` + PNGs. **Next: attention
+  (OV/QK) circuits** — untested component, prime suspect for board-building /
+  board->move routing. Also open: mid-layer (5-7) unembed via propagated directions.
+- **Board storage map** — DONE. `src/board_map.py` (`--arch {bilinear,gelu}`),
+  `slurm/board_map.slurm`. Exact additive decomposition of the linear mine/yours
+  readout into every component (emb, all 64 attn heads, all 8 MLPs; reconstruction
+  corr 1.000). **Finding: the board lives in ATTENTION, both archs, never MLPs** —
+  board_corr>0.3 only for attn heads (bilinear 9/64, GELU 18/64), 0/8 MLPs (max MLP
+  0.22). Sparse mid-layer heads (4-7). MLPs' large *share* (bilinear 0.69, GELU
+  0.27) is board-ORTHOGONAL variance. Making MLPs bilinear did NOT push board into
+  attention (already there); it made attention board-code LESS redundant (9 vs 18)
+  and MLPs inject more orthogonal variance → mechanistically explains bilinear's ~2x
+  worse board readout (2.08% vs 1.03%) at equal task error. Lead: GELU "h5 family"
+  A5.h5/A6.h5/A7.h5 (0.61/0.54/0.45) = candidate board-tracking head circuit. Next:
+  attention patterns of these heads (do they attend along the 8 lines through the
+  move?). Outputs `results/board_map_full{,_bilinear}.json` + PNGs; full synthesis
+  in `results/weight_space_interpretability.md`.
+- **OV-circuit board map** — DONE. `src/attn_ov_board.py`, `slurm/attn_ov_board.slurm`.
+  Tests whether head WEIGHTS map the board: W_OV=W_O W_V board->board projection
+  (io_frac, chance (r/D)^2) + tile×tile transfer T[t,s]=w_t·W_OV·enc_s. **Answer:
+  YES.** Top heads (A5.h3/A6.h0 bilinear, A5.h5/A6.h5 GELU) map board->board at
+  ~12x chance; weight io_frac correlates 0.6-0.7 with activation board_corr over 64
+  heads (two independent methods agree); transfer matrix ~10x DIAGONAL -> heads COPY
+  board state tile->same-tile = board-MAINTENANCE heads (not flip-computation;
+  off-diag weak ~0.08). GELU crisper (diag 11.5x, 1.03%) than bilinear (9.7x, 2.08%).
+  So the world model IS weight-recoverable — from attention OV circuits, not MLPs.
+  Outputs `results/attn_ov_board_full{,_bilinear}.json` + _transfer.png. Open next:
+  QK circuits (which positions these heads read) + whether OV off-diag has flip geometry.
+  Full run was a **single 47h job on 2xA100-80GB**:
   `slurm/train_gpt_bilinear.slurm` (`sbatch` it). **MUST pin A100**
   (`--gres=gpu:nvidia_a100:2`): batch 4096 needs ~31GB/GPU and OOMs on the 32GB
   V100s (h11g3) — an unpinned `gpu:2` chain died this way. Uses `--resume` (no

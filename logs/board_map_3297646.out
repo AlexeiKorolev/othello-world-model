@@ -1,0 +1,25 @@
+==== board_map ====
+Job 3297646 on adroit-h11g1
+Profile: full  Args: --arch gelu  Start: Tue Jul  7 11:08:05 PM EDT 2026
+name, memory.total [MiB]
+NVIDIA A100 80GB PCIe, 81920 MiB
+[map] loaded /scratch/network/ak9088/Gemma/othello-gemma/ckpts/gpt_synthetic_full.ckpt (arch=gelu)
+[map] linear mine/yours probe on resid8: 1.03%  (107s)
+[map] reconstruction corr (sum comps vs total), median tile: 1.0000
+[map] attn share 0.72  mlp share 0.27  emb share 0.00
+[map] top components by share:
+    M1       share +0.075  board_corr 0.182
+    M8       share +0.062  board_corr 0.008
+    M6       share +0.057  board_corr 0.069
+    M5       share +0.055  board_corr 0.137
+    A5.h5    share +0.045  board_corr 0.612
+    M7       share -0.044  board_corr 0.216
+    A6.h5    share +0.038  board_corr 0.542
+    A7.h5    share +0.029  board_corr 0.452
+    M2       share +0.029  board_corr 0.088
+    A5.h7    share +0.028  board_corr 0.422
+    A4.h0    share +0.026  board_corr 0.377
+    A7.h2    share +0.023  board_corr 0.105
+[map] wrote /scratch/network/ak9088/Gemma/othello-gemma/results/board_map_full.json
+[map] wrote /scratch/network/ak9088/Gemma/othello-gemma/results/board_map_full.png
+Finished: Tue Jul  7 11:09:59 PM EDT 2026

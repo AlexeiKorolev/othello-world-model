@@ -1,0 +1,24 @@
+==== attn_ov_board ====
+Job 3297652 on adroit-h11g1
+Profile: full  Args: --arch gelu  Start: Tue Jul  7 11:29:21 PM EDT 2026
+name, memory.total [MiB]
+NVIDIA A100 80GB PCIe, 81920 MiB
+[ov] loaded /scratch/network/ak9088/Gemma/othello-gemma/ckpts/gpt_synthetic_full.ckpt (arch=gelu)
+[ov] extracted 117961 positions in 10s
+[ov] final board readout 1.03%; board rank 64, chance out 0.125 io 0.0156
+[ov] top heads by board->board io_frac (x chance):
+    A5.h5    io 0.191 ( 12.2x)  out 0.273 ( 2.2x)  board_corr 0.61
+    A6.h5    io 0.144 (  9.2x)  out 0.292 ( 2.3x)  board_corr 0.54
+    A1.h6    io 0.137 (  8.8x)  out 0.184 ( 1.5x)  board_corr 0.24
+    A1.h3    io 0.130 (  8.3x)  out 0.183 ( 1.5x)  board_corr 0.25
+    A2.h3    io 0.119 (  7.6x)  out 0.252 ( 2.0x)  board_corr 0.34
+    A4.h6    io 0.103 (  6.6x)  out 0.256 ( 2.0x)  board_corr 0.37
+    A3.h3    io 0.098 (  6.3x)  out 0.227 ( 1.8x)  board_corr 0.35
+    A1.h0    io 0.093 (  6.0x)  out 0.134 ( 1.1x)  board_corr 0.13
+    A4.h5    io 0.092 (  5.9x)  out 0.253 ( 2.0x)  board_corr 0.24
+    A3.h4    io 0.091 (  5.8x)  out 0.242 ( 1.9x)  board_corr 0.36
+[ov] wrote /scratch/network/ak9088/Gemma/othello-gemma/results/attn_ov_board_full.json
+[ov] wrote /scratch/network/ak9088/Gemma/othello-gemma/results/attn_ov_board_full_transfer.png
+[ov] A5.h5 transfer: mean|diag| 0.971 vs mean|off-diag| 0.090 (ratio 10.74)
+[ov] A6.h5 transfer: mean|diag| 1.248 vs mean|off-diag| 0.109 (ratio 11.45)
+Finished: Tue Jul  7 11:31:14 PM EDT 2026
