@@ -1,0 +1,13 @@
+{
+  "profile": "pilot",
+  "tag": "pilot",
+  "n_cases": 200,
+  "probe": "linear_mine_yours",
+  "intervened_error_mean": 1.74,
+  "baseline_error_mean": 2.14,
+  "intervened_error_std": 1.0734989520255713,
+  "baseline_error_std": 0.990151503558925,
+  "layer_s": 4,
+  "layer_e": 9,
+  "metric": "top-N illegal count"
+}

@@ -5,13 +5,19 @@ vendored `data/othello.py`, i.e. uniformly random *legal* play until no move
 remains (a leaf of the game tree). Games are written as pickle shards of
 move-index lists under paths.data_dir.
 
-Runs under Slurm on a CPU node (uses all allocated cores). Example:
+Runs under Slurm on a CPU node (uses all allocated cores). Resumable at shard
+granularity: a shard whose file already exists on disk is skipped rather than
+regenerated, so a preempted-and-requeued ckpt-all job picks up where it left
+off instead of overwriting completed shards.
+
     python gen_data.py --config ../configs/config.yaml --profile pilot
 """
 import os
 import time
+import pickle
 import random
 import argparse
+import itertools
 import multiprocessing as mp
 
 from tqdm import tqdm
@@ -53,6 +59,13 @@ def main():
     total_written = 0
     with mp.Pool(ncpu) as pool:
         for s in range(n_shards):
+            path = common.shard_path(data_dir, profile, s)
+            if os.path.exists(path):
+                with open(path, "rb") as f:
+                    total_written += len(pickle.load(f))
+                print(f"[gen_data] shard {s+1}/{n_shards} already exists, skipping "
+                      f"({total_written} total so far)", flush=True)
+                continue
             lo = s * shard_size
             hi = min((s + 1) * shard_size, n_games)
             # unique seeds across the whole run
@@ -63,9 +76,7 @@ def main():
                 games.append(g)
             # local dedup (cheap; global dedup happens at load time)
             games.sort()
-            import itertools
             games = [k for k, _ in itertools.groupby(games)]
-            path = common.shard_path(data_dir, profile, s)
             common.write_shard(games, path)
             total_written += len(games)
             print(f"[gen_data] wrote {path}: {len(games)} unique games "

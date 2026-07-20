@@ -71,6 +71,8 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--config", default=None)
     ap.add_argument("--profile", default=None)
+    ap.add_argument("--ckpt", default=None, help="override checkpoint path")
+    ap.add_argument("--tag", default=None, help="label for output files (default: profile)")
     args = ap.parse_args()
 
     cfg = common.load_config(args.config)
@@ -78,6 +80,7 @@ def main():
         cfg["profile"] = args.profile
     common.add_upstream_to_path(cfg)
     profile = cfg["profile"]
+    tag = args.tag or profile
     device = "cuda" if torch.cuda.is_available() else "cpu"
     ic = cfg["intervene"]
     layer_s, layer_e = ic["layer_s"], ic["layer_e"]
@@ -89,7 +92,7 @@ def main():
 
     mconf = GPTConfig(common.VOCAB_SIZE, common.BLOCK_SIZE, n_layer=cfg["model"]["n_layer"],
                       n_head=cfg["model"]["n_head"], n_embd=n_embd)
-    ckpt = os.path.join(cfg["paths"]["ckpt_dir"], f"gpt_synthetic_{profile}.ckpt")
+    ckpt = args.ckpt or os.path.join(cfg["paths"]["ckpt_dir"], f"gpt_synthetic_{profile}.ckpt")
     sd = torch.load(ckpt, map_location="cpu")
 
     model_ia = GPTforProbeIA(mconf, probe_layer=layer_s)
@@ -164,14 +167,14 @@ def main():
         intv_errs.append(legality_error(intv_logits[0, -1], true_legal))
 
     res = {
-        "profile": profile, "n_cases": n_cases, "probe": "linear_mine_yours",
+        "profile": profile, "tag": tag, "n_cases": n_cases, "probe": "linear_mine_yours",
         "intervened_error_mean": float(np.mean(intv_errs)),
         "baseline_error_mean": float(np.mean(base_errs)),
         "intervened_error_std": float(np.std(intv_errs)),
         "baseline_error_std": float(np.std(base_errs)),
         "layer_s": layer_s, "layer_e": layer_e, "metric": "top-N illegal count",
     }
-    out = os.path.join(cfg["paths"]["results_dir"], f"intervention_nanda_{profile}.json")
+    out = os.path.join(cfg["paths"]["results_dir"], f"intervention_nanda_{tag}.json")
     os.makedirs(cfg["paths"]["results_dir"], exist_ok=True)
     with open(out, "w") as f:
         json.dump(res, f, indent=2)

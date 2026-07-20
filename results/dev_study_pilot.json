@@ -1,0 +1,288 @@
+{
+  "profile": "pilot",
+  "arch": "gelu",
+  "probe_layers": [
+    4,
+    5,
+    6,
+    7
+  ],
+  "intervene_layer_s": 4,
+  "intervene_layer_e": 8,
+  "probe_every_n_epochs": 2,
+  "epochs": [
+    {
+      "epoch": 0,
+      "probe_myours_err": {
+        "4": 0.2585109904661017,
+        "5": 0.2595372086864407,
+        "6": 0.2591167902542373,
+        "7": 0.25922934322033897
+      },
+      "intervention_baseline_err": 8.25,
+      "intervention_intervened_err": 8.175,
+      "ckpt": "/mmfs1/home/jdfelo/BilinearOthelloGPT/ckpts/dev_study_pilot/gpt_epoch000.ckpt",
+      "wall_s": 43.8
+    },
+    {
+      "epoch": 2,
+      "probe_myours_err": {
+        "4": 0.23737420550847455,
+        "5": 0.23865201271186443,
+        "6": 0.2387744968220339,
+        "7": 0.23999933792372885
+      },
+      "intervention_baseline_err": 4.25,
+      "intervention_intervened_err": 4.125,
+      "ckpt": "/mmfs1/home/jdfelo/BilinearOthelloGPT/ckpts/dev_study_pilot/gpt_epoch002.ckpt",
+      "wall_s": 33.1
+    },
+    {
+      "epoch": 4,
+      "probe_myours_err": {
+        "4": 0.20508805614406778,
+        "5": 0.20598185911016953,
+        "6": 0.2069948358050847,
+        "7": 0.2091002383474576
+      },
+      "intervention_baseline_err": 3.225,
+      "intervention_intervened_err": 3.025,
+      "ckpt": "/mmfs1/home/jdfelo/BilinearOthelloGPT/ckpts/dev_study_pilot/gpt_epoch004.ckpt",
+      "wall_s": 33.7
+    },
+    {
+      "epoch": 6,
+      "probe_myours_err": {
+        "4": 0.12225238347457623,
+        "5": 0.12325211864406782,
+        "6": 0.12482786016949154,
+        "7": 0.12658898305084743
+      },
+      "intervention_baseline_err": 2.475,
+      "intervention_intervened_err": 2.35,
+      "ckpt": "/mmfs1/home/jdfelo/BilinearOthelloGPT/ckpts/dev_study_pilot/gpt_epoch006.ckpt",
+      "wall_s": 33.3
+    },
+    {
+      "epoch": 8,
+      "probe_myours_err": {
+        "4": 0.1116326800847458,
+        "5": 0.11152343750000004,
+        "6": 0.11242386122881354,
+        "7": 0.11384070444915251
+      },
+      "intervention_baseline_err": 2.15,
+      "intervention_intervened_err": 1.975,
+      "ckpt": "/mmfs1/home/jdfelo/BilinearOthelloGPT/ckpts/dev_study_pilot/gpt_epoch008.ckpt",
+      "wall_s": 32.9
+    },
+    {
+      "epoch": 10,
+      "probe_myours_err": {
+        "4": 0.10796146716101696,
+        "5": 0.1072563559322034,
+        "6": 0.1081965042372881,
+        "7": 0.10986493644067796
+      },
+      "intervention_baseline_err": 2.075,
+      "intervention_intervened_err": 1.95,
+      "ckpt": "/mmfs1/home/jdfelo/BilinearOthelloGPT/ckpts/dev_study_pilot/gpt_epoch010.ckpt",
+      "wall_s": 33.3
+    },
+    {
+      "epoch": 12,
+      "probe_myours_err": {
+        "4": 0.10420749470338986,
+        "5": 0.10268471927966105,
+        "6": 0.10359838453389836,
+        "7": 0.10522047139830504
+      },
+      "intervention_baseline_err": 1.875,
+      "intervention_intervened_err": 1.675,
+      "ckpt": "/mmfs1/home/jdfelo/BilinearOthelloGPT/ckpts/dev_study_pilot/gpt_epoch012.ckpt",
+      "wall_s": 33.5
+    },
+    {
+      "epoch": 14,
+      "probe_myours_err": {
+        "4": 0.10054621292372878,
+        "5": 0.09854674258474572,
+        "6": 0.10013903601694918,
+        "7": 0.10152608580508471
+      },
+      "intervention_baseline_err": 1.9,
+      "intervention_intervened_err": 1.625,
+      "ckpt": "/mmfs1/home/jdfelo/BilinearOthelloGPT/ckpts/dev_study_pilot/gpt_epoch014.ckpt",
+      "wall_s": 32.9
+    },
+    {
+      "epoch": 16,
+      "probe_myours_err": {
+        "4": 0.0990896451271186,
+        "5": 0.09772907838983047,
+        "6": 0.09869239936440677,
+        "7": 0.1005726959745763
+      },
+      "intervention_baseline_err": 1.825,
+      "intervention_intervened_err": 1.675,
+      "ckpt": "/mmfs1/home/jdfelo/BilinearOthelloGPT/ckpts/dev_study_pilot/gpt_epoch016.ckpt",
+      "wall_s": 33.0
+    },
+    {
+      "epoch": 18,
+      "probe_myours_err": {
+        "4": 0.09877846927966105,
+        "5": 0.09635858050847457,
+        "6": 0.0980237023305085,
+        "7": 0.09923199152542372
+      },
+      "intervention_baseline_err": 1.875,
+      "intervention_intervened_err": 1.675,
+      "ckpt": "/mmfs1/home/jdfelo/BilinearOthelloGPT/ckpts/dev_study_pilot/gpt_epoch018.ckpt",
+      "wall_s": 33.1
+    },
+    {
+      "epoch": 20,
+      "probe_myours_err": {
+        "4": 0.10033103813559319,
+        "5": 0.09821239406779658,
+        "6": 0.09942399364406784,
+        "7": 0.10157905190677963
+      },
+      "intervention_baseline_err": 1.85,
+      "intervention_intervened_err": 1.725,
+      "ckpt": "/mmfs1/home/jdfelo/BilinearOthelloGPT/ckpts/dev_study_pilot/gpt_epoch020.ckpt",
+      "wall_s": 33.0
+    },
+    {
+      "epoch": 22,
+      "probe_myours_err": {
+        "4": 0.09903667902542368,
+        "5": 0.0965141684322034,
+        "6": 0.09826867055084743,
+        "7": 0.10021517478813557
+      },
+      "intervention_baseline_err": 1.875,
+      "intervention_intervened_err": 1.675,
+      "ckpt": "/mmfs1/home/jdfelo/BilinearOthelloGPT/ckpts/dev_study_pilot/gpt_epoch022.ckpt",
+      "wall_s": 33.5
+    },
+    {
+      "epoch": 24,
+      "probe_myours_err": {
+        "4": 0.09919226694915251,
+        "5": 0.0968948622881356,
+        "6": 0.0989373675847458,
+        "7": 0.10088387182203384
+      },
+      "intervention_baseline_err": 1.95,
+      "intervention_intervened_err": 1.6,
+      "ckpt": "/mmfs1/home/jdfelo/BilinearOthelloGPT/ckpts/dev_study_pilot/gpt_epoch024.ckpt",
+      "wall_s": 32.8
+    },
+    {
+      "epoch": 26,
+      "probe_myours_err": {
+        "4": 0.10006951800847452,
+        "5": 0.09807335805084749,
+        "6": 0.10010593220338981,
+        "7": 0.10242650953389831
+      },
+      "intervention_baseline_err": 1.975,
+      "intervention_intervened_err": 1.625,
+      "ckpt": "/mmfs1/home/jdfelo/BilinearOthelloGPT/ckpts/dev_study_pilot/gpt_epoch026.ckpt",
+      "wall_s": 33.2
+    },
+    {
+      "epoch": 28,
+      "probe_myours_err": {
+        "4": 0.10084745762711866,
+        "5": 0.09909957627118648,
+        "6": 0.1015889830508474,
+        "7": 0.10401218220338981
+      },
+      "intervention_baseline_err": 1.925,
+      "intervention_intervened_err": 1.625,
+      "ckpt": "/mmfs1/home/jdfelo/BilinearOthelloGPT/ckpts/dev_study_pilot/gpt_epoch028.ckpt",
+      "wall_s": 33.1
+    },
+    {
+      "epoch": 30,
+      "probe_myours_err": {
+        "4": 0.10044028072033895,
+        "5": 0.09936109639830504,
+        "6": 0.10145656779661016,
+        "7": 0.10422404661016949
+      },
+      "intervention_baseline_err": 2.075,
+      "intervention_intervened_err": 1.675,
+      "ckpt": "/mmfs1/home/jdfelo/BilinearOthelloGPT/ckpts/dev_study_pilot/gpt_epoch030.ckpt",
+      "wall_s": 32.9
+    },
+    {
+      "epoch": 32,
+      "probe_myours_err": {
+        "4": 0.10101959745762712,
+        "5": 0.09976827330508475,
+        "6": 0.10223781779661012,
+        "7": 0.10533633474576276
+      },
+      "intervention_baseline_err": 2.075,
+      "intervention_intervened_err": 1.7,
+      "ckpt": "/mmfs1/home/jdfelo/BilinearOthelloGPT/ckpts/dev_study_pilot/gpt_epoch032.ckpt",
+      "wall_s": 33.1
+    },
+    {
+      "epoch": 34,
+      "probe_myours_err": {
+        "4": 0.10223119703389827,
+        "5": 0.10077793961864412,
+        "6": 0.1033004502118644,
+        "7": 0.10633606991525424
+      },
+      "intervention_baseline_err": 2.0,
+      "intervention_intervened_err": 1.7,
+      "ckpt": "/mmfs1/home/jdfelo/BilinearOthelloGPT/ckpts/dev_study_pilot/gpt_epoch034.ckpt",
+      "wall_s": 33.0
+    },
+    {
+      "epoch": 36,
+      "probe_myours_err": {
+        "4": 0.10189022775423728,
+        "5": 0.10084083686440681,
+        "6": 0.10346927966101693,
+        "7": 0.10632944915254239
+      },
+      "intervention_baseline_err": 2.1,
+      "intervention_intervened_err": 1.75,
+      "ckpt": "/mmfs1/home/jdfelo/BilinearOthelloGPT/ckpts/dev_study_pilot/gpt_epoch036.ckpt",
+      "wall_s": 32.9
+    },
+    {
+      "epoch": 38,
+      "probe_myours_err": {
+        "4": 0.10168829449152539,
+        "5": 0.10080773305084745,
+        "6": 0.10387645656779665,
+        "7": 0.10659096927966105
+      },
+      "intervention_baseline_err": 2.1,
+      "intervention_intervened_err": 1.7,
+      "ckpt": "/mmfs1/home/jdfelo/BilinearOthelloGPT/ckpts/dev_study_pilot/gpt_epoch038.ckpt",
+      "wall_s": 34.1
+    },
+    {
+      "epoch": 40,
+      "probe_myours_err": {
+        "4": 0.10215174788135595,
+        "5": 0.10098649364406775,
+        "6": 0.10326072563559319,
+        "7": 0.10678297139830506
+      },
+      "intervention_baseline_err": 2.05,
+      "intervention_intervened_err": 1.675,
+      "ckpt": "/mmfs1/home/jdfelo/BilinearOthelloGPT/ckpts/dev_study_pilot/gpt_epoch040.ckpt",
+      "wall_s": 33.1
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "profile": "full",
+  "tag": "full_h200",
+  "arch": "gelu",
+  "expansion": null,
+  "legal_move_error": 0.00045800749775237737,
+  "legal": 58924,
+  "total": 58951,
+  "ckpt": "/mmfs1/home/jdfelo/BilinearOthelloGPT/ckpts/gpt_synthetic_full_h200.ckpt"
+}

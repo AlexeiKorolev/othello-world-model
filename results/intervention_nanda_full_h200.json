@@ -1,0 +1,13 @@
+{
+  "profile": "full",
+  "tag": "full_h200",
+  "n_cases": 200,
+  "probe": "linear_mine_yours",
+  "intervened_error_mean": 0.67,
+  "baseline_error_mean": 1.36,
+  "intervened_error_std": 0.5301886456724625,
+  "baseline_error_std": 0.632771680782255,
+  "layer_s": 4,
+  "layer_e": 9,
+  "metric": "top-N illegal count"
+}

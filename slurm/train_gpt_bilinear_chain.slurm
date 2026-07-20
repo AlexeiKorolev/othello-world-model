@@ -1,16 +1,17 @@
 #!/bin/bash
 #SBATCH --job-name=oth_bchain
-#SBATCH --output=/scratch/network/ak9088/Gemma/othello-gemma/logs/train_bilinear_chain_%j.out
-#SBATCH --error=/scratch/network/ak9088/Gemma/othello-gemma/logs/train_bilinear_chain_%j.err
+#SBATCH --account=stf
+#SBATCH --partition=gpu-l40s
+#SBATCH --gpus-per-node=l40s:2
+#SBATCH --output=/mmfs1/home/jdfelo/BilinearOthelloGPT/logs/train_bilinear_chain_%j.out
+#SBATCH --error=/mmfs1/home/jdfelo/BilinearOthelloGPT/logs/train_bilinear_chain_%j.err
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=16
 #SBATCH --mem=64G
-#SBATCH --gres=gpu:2
-#SBATCH --partition=gpu
 #SBATCH --time=12:00:00
 #SBATCH --mail-type=END,FAIL,TIME_LIMIT
-#SBATCH --mail-user=alexeikorolev7@gmail.com,ak9088@princeton.edu
+#SBATCH --mail-user=alexeikorolev7@gmail.com
 
 # One 12h chunk of the full bilinear training, checkpoint/resume, NO self-submit.
 # Pre-submit a chain of these with afterany dependencies (see submit_bilinear_chain.sh):
@@ -19,10 +20,11 @@
 # next queued chunk runs. When all 20 epochs are done it evals and exits 0; any extra
 # queued chunks then detect completion, re-eval (idempotent), and exit fast.
 PROFILE="${PROFILE:-full}"
-ROOT=/scratch/network/ak9088/Gemma/othello-gemma
+ROOT=/mmfs1/home/jdfelo/BilinearOthelloGPT
 
-source /scratch/network/ak9088/anaconda3/etc/profile.d/conda.sh
-conda activate $ROOT/env
+source /gscratch/stf/jdfelo/miniconda3/etc/profile.d/conda.sh
+conda activate /gscratch/stf/jdfelo/envs/othello
+module load cuda
 
 mkdir -p $ROOT/logs $ROOT/ckpts $ROOT/results
 echo "==== train_gpt bilinear CHAIN chunk ===="; echo "Job $SLURM_JOB_ID on $SLURMD_NODENAME"

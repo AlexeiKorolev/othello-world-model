@@ -1,7 +1,9 @@
 {
   "profile": "pilot",
-  "legal_move_error": 0.028385279695956833,
-  "legal": 57266,
+  "arch": "gelu",
+  "expansion": null,
+  "legal_move_error": 0.029013047387977386,
+  "legal": 57229,
   "total": 58939,
-  "ckpt": "/scratch/network/ak9088/Gemma/othello-gemma/ckpts/gpt_synthetic_pilot.ckpt"
+  "ckpt": "/mmfs1/home/jdfelo/BilinearOthelloGPT/ckpts/gpt_synthetic_pilot.ckpt"
 }

@@ -1,25 +1,27 @@
 #!/bin/bash
 #SBATCH --job-name=oth_valid
-#SBATCH --output=/scratch/network/ak9088/Gemma/othello-gemma/logs/validate_%j.out
-#SBATCH --error=/scratch/network/ak9088/Gemma/othello-gemma/logs/validate_%j.err
+#SBATCH --account=stf
+#SBATCH --partition=gpu-l40s
+#SBATCH --gpus-per-node=l40s:1
+#SBATCH --output=/mmfs1/home/jdfelo/BilinearOthelloGPT/logs/validate_%j.out
+#SBATCH --error=/mmfs1/home/jdfelo/BilinearOthelloGPT/logs/validate_%j.err
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=64G
-#SBATCH --gres=gpu:1
-#SBATCH --partition=gpu
 #SBATCH --time=04:00:00
 #SBATCH --mail-type=END,FAIL,TIME_LIMIT
-#SBATCH --mail-user=alexeikorolev7@gmail.com,ak9088@princeton.edu
+#SBATCH --mail-user=alexeikorolev7@gmail.com
 
 # Anchor check on the authors' released synthetic weights (already downloaded
 # to ckpts/pretrained/synthetic_model.pth on the login node).
 set -e
 PROFILE="${PROFILE:-pilot}"
-ROOT=/scratch/network/ak9088/Gemma/othello-gemma
+ROOT=/mmfs1/home/jdfelo/BilinearOthelloGPT
 
-source /scratch/network/ak9088/anaconda3/etc/profile.d/conda.sh
-conda activate $ROOT/env
+source /gscratch/stf/jdfelo/miniconda3/etc/profile.d/conda.sh
+conda activate /gscratch/stf/jdfelo/envs/othello
+module load cuda
 
 mkdir -p $ROOT/logs $ROOT/results
 echo "==== validate_pretrained ===="; echo "Job $SLURM_JOB_ID on $SLURMD_NODENAME"

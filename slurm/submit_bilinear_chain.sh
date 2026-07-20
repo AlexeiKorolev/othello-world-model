@@ -4,7 +4,7 @@
 # still triggers the next chunk. Extra chunks after completion exit fast.
 #   bash slurm/submit_bilinear_chain.sh [N]     # N chunks (default 6)
 set -e
-ROOT=/scratch/network/ak9088/Gemma/othello-gemma
+ROOT=/mmfs1/home/jdfelo/BilinearOthelloGPT
 N="${1:-6}"
 SCRIPT=$ROOT/slurm/train_gpt_bilinear_chain.slurm
 

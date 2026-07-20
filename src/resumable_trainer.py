@@ -2,14 +2,25 @@
 
 Reimplements the loop of `mingpt.trainer.Trainer.train()` verbatim (same AdamW via
 `configure_optimizers`, same token-based linear-warmup + cosine LR decay, same
-grad-norm clip, same DataParallel), and adds:
+grad-norm clip), and adds:
 
   * a full-state checkpoint each epoch -- model + optimizer + LR token counter +
     epoch index + RNG state -- written atomically to `<ckpt>.state`, plus the
     model-only `<ckpt>` that downstream jobs load;
   * `train(wall_budget_sec)`: after each epoch, if the *next* epoch (estimated
     from measured epoch time, +20% margin) would exceed the budget, pause and
-    return False. Returns True only when all `max_epochs` are done.
+    return False. Returns True only when all `max_epochs` are done;
+  * bf16 autocast + `torch.compile` on the training forward pass (both on by
+    default when CUDA is available -- this workload is compute-bound, not
+    memory-bound, per bench_speed.py's H200 sweep, so fp32 was leaving real
+    throughput on the table). Only the hot forward call goes through the
+    compiled/autocast path (`self.train_model`); checkpointing, `_raw()`, and
+    `configure_optimizers` all still see the plain uncompiled model
+    (`self.model`), since compile/DataParallel wrapping only needs to touch
+    the loop that calls the model, not anything that introspects or saves it.
+    DataParallel is skipped entirely on a single visible GPU (the common case
+    here) since it's a no-op wrapper in that case and one less thing for
+    compile to wrap.
 
 Because the LR schedule is driven by the restored `self.tokens`, chunked training
 follows the identical LR curve as one continuous run.
@@ -35,14 +46,23 @@ def _atomic_save(obj, path):
 
 
 class ResumableTrainer:
-    def __init__(self, model, train_dataset, config):
+    def __init__(self, model, train_dataset, config, use_amp=True, compile_model=True):
         self.model = model
         self.train_dataset = train_dataset
         self.config = config
         self.device = "cpu"
+        self.amp_device_type = "cpu"
+        self.use_amp = False
+        self.train_model = self.model
         if torch.cuda.is_available():
-            self.device = torch.cuda.current_device()
-            self.model = torch.nn.DataParallel(self.model).to(self.device)
+            self.device = torch.device(f"cuda:{torch.cuda.current_device()}")
+            self.amp_device_type = "cuda"
+            self.use_amp = use_amp
+            self.model = self.model.to(self.device)
+            if torch.cuda.device_count() > 1:
+                self.model = torch.nn.DataParallel(self.model)
+            self.train_model = (torch.compile(self.model, dynamic=False)
+                                if compile_model else self.model)
         self.tokens = 0
         self.start_epoch = 0
 
@@ -83,18 +103,20 @@ class ResumableTrainer:
               f"tokens {self.tokens}", flush=True)
 
     def _run_epoch(self, optimizer, epoch):
-        model, config = self.model, self.config
-        model.train(True)
+        config = self.config
+        self.model.train(True)
         loader = DataLoader(self.train_dataset, shuffle=True, pin_memory=True,
                             batch_size=config.batch_size, num_workers=config.num_workers)
         pbar = tqdm(enumerate(loader), total=len(loader), mininterval=30)
         for it, (x, y) in pbar:
             x = x.to(self.device); y = y.to(self.device)
-            with torch.set_grad_enabled(True):
-                _, loss = model(x, y)
+            with torch.set_grad_enabled(True), torch.autocast(
+                    device_type=self.amp_device_type, dtype=torch.bfloat16,
+                    enabled=self.use_amp):
+                _, loss = self.train_model(x, y)
                 loss = loss.mean()
-            model.zero_grad(); loss.backward()
-            torch.nn.utils.clip_grad_norm_(model.parameters(), config.grad_norm_clip)
+            self.model.zero_grad(set_to_none=True); loss.backward()
+            torch.nn.utils.clip_grad_norm_(self.model.parameters(), config.grad_norm_clip)
             optimizer.step()
             if config.lr_decay:
                 self.tokens += (y >= 0).sum()

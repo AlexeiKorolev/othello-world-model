@@ -1,13 +1,13 @@
-# Othello-GPT reproduction on Adroit — all experiment knobs in one place.
+# Othello-GPT reproduction on klone — all experiment knobs in one place.
 # Faithful re-creation of Li et al. 2023 (arXiv:2210.13382), synthetic track.
 
 paths:
-  root:        /scratch/network/ak9088/Gemma/othello-gemma
-  upstream:    /scratch/network/ak9088/Gemma/othello-gemma/upstream
-  data_dir:    /scratch/network/ak9088/Gemma/othello-gemma/data
-  ckpt_dir:    /scratch/network/ak9088/Gemma/othello-gemma/ckpts
-  results_dir: /scratch/network/ak9088/Gemma/othello-gemma/results
-  hf_cache:    /scratch/network/ak9088/Gemma/hf_cache
+  root:        /mmfs1/home/jdfelo/BilinearOthelloGPT
+  upstream:    /mmfs1/home/jdfelo/BilinearOthelloGPT/upstream
+  data_dir:    /mmfs1/home/jdfelo/BilinearOthelloGPT/data
+  ckpt_dir:    /mmfs1/home/jdfelo/BilinearOthelloGPT/ckpts
+  results_dir: /mmfs1/home/jdfelo/BilinearOthelloGPT/results
+  hf_cache:    /gscratch/stf/jdfelo/BilinearOthelloGPT/hf_cache
 
 # Active profile selects the data/training scale. The pilot smoke-tests the
 # whole pipeline cheaply; full reproduces the paper.
@@ -69,7 +69,24 @@ intervene:
   reg_strength: 0.2
   steps: 1000
 
+# src/dev_study.py: interleave a lightweight Nanda mine/yours probe + causal
+# intervention check into GPT training itself, every `probe_every_n_epochs`
+# epochs (plus once at epoch 0, random init), to see WHEN the linear world
+# model arises over training. Deliberately much lighter than `probe:` /
+# `intervene:` above since it runs ~20x in one job instead of once; the final
+# checkpoint still gets the full-scale nanda_probe.py / intervene_nanda.py
+# treatment for a polished end-of-training number.
+dev_study:
+  probe_every_n_epochs: 2
+  probe_layers: [4, 5, 6, 7]   # contiguous range: intervention needs a probe at every layer in [layer_s, layer_e)
+  probe_max_games: 400         # << probe.max_probe_games (2000)
+  probe_epochs: 25             # << probe.epochs (150)
+  intervene_layer_s: 4
+  intervene_layer_e: 8         # exclusive -> layers 4,5,6,7
+  intervene_n_cases: 40        # << intervene.n_cases (200)
+  intervene_steps: 250         # << intervene.steps (1000)
+
 # Mandatory per user: email on completion no matter the outcome.
 email:
-  address: "alexeikorolev7@gmail.com,ak9088@princeton.edu"
+  address: "alexeikorolev7@gmail.com"
   mail_type: "END,FAIL,TIME_LIMIT"

@@ -1,0 +1,139 @@
+{
+  "profile": "full",
+  "tag": "full_h200",
+  "arch": "gelu",
+  "probe_layers": [
+    4,
+    5,
+    6,
+    7,
+    8
+  ],
+  "intervene_layer_s": 4,
+  "intervene_layer_e": 9,
+  "probe_every_n_epochs": 2,
+  "epochs": [
+    {
+      "epoch": 0,
+      "probe_myours_err": {
+        "4": 0.2244
+      },
+      "probe_myours_err_note": "only the best-performing layer's error was logged for this round; the full per-layer breakdown was lost when the job was preempted and resumed (dev_study.py previously reset its results file on restart instead of reloading it -- fixed after this run).",
+      "intervention_baseline_err": 8.135,
+      "intervention_intervened_err": 8.18,
+      "ckpt": "ckpts/dev_study_full_h200/gpt_epoch000.ckpt"
+    },
+    {
+      "epoch": 2,
+      "probe_myours_err": {
+        "7": 0.0521
+      },
+      "probe_myours_err_note": "only the best-performing layer's error was logged for this round; the full per-layer breakdown was lost when the job was preempted and resumed (dev_study.py previously reset its results file on restart instead of reloading it -- fixed after this run).",
+      "intervention_baseline_err": 1.41,
+      "intervention_intervened_err": 1.05,
+      "ckpt": "ckpts/dev_study_full_h200/gpt_epoch002.ckpt"
+    },
+    {
+      "epoch": 4,
+      "probe_myours_err": {
+        "8": 0.0265
+      },
+      "probe_myours_err_note": "only the best-performing layer's error was logged for this round; the full per-layer breakdown was lost when the job was preempted and resumed (dev_study.py previously reset its results file on restart instead of reloading it -- fixed after this run).",
+      "intervention_baseline_err": 1.365,
+      "intervention_intervened_err": 0.685,
+      "ckpt": "ckpts/dev_study_full_h200/gpt_epoch004.ckpt"
+    },
+    {
+      "epoch": 6,
+      "probe_myours_err": {
+        "8": 0.0214
+      },
+      "probe_myours_err_note": "only the best-performing layer's error was logged for this round; the full per-layer breakdown was lost when the job was preempted and resumed (dev_study.py previously reset its results file on restart instead of reloading it -- fixed after this run).",
+      "intervention_baseline_err": 1.4,
+      "intervention_intervened_err": 0.605,
+      "ckpt": "ckpts/dev_study_full_h200/gpt_epoch006.ckpt"
+    },
+    {
+      "epoch": 8,
+      "probe_myours_err": {
+        "7": 0.0149
+      },
+      "probe_myours_err_note": "only the best-performing layer's error was logged for this round; the full per-layer breakdown was lost when the job was preempted and resumed (dev_study.py previously reset its results file on restart instead of reloading it -- fixed after this run).",
+      "intervention_baseline_err": 1.365,
+      "intervention_intervened_err": 0.635,
+      "ckpt": "ckpts/dev_study_full_h200/gpt_epoch008.ckpt"
+    },
+    {
+      "epoch": 10,
+      "probe_myours_err": {
+        "7": 0.0127
+      },
+      "probe_myours_err_note": "only the best-performing layer's error was logged for this round; the full per-layer breakdown was lost when the job was preempted and resumed (dev_study.py previously reset its results file on restart instead of reloading it -- fixed after this run).",
+      "intervention_baseline_err": 1.325,
+      "intervention_intervened_err": 0.655,
+      "ckpt": "ckpts/dev_study_full_h200/gpt_epoch010.ckpt"
+    },
+    {
+      "epoch": 12,
+      "probe_myours_err": {
+        "7": 0.0128
+      },
+      "probe_myours_err_note": "only the best-performing layer's error was logged for this round; the full per-layer breakdown was lost when the job was preempted and resumed (dev_study.py previously reset its results file on restart instead of reloading it -- fixed after this run).",
+      "intervention_baseline_err": 1.35,
+      "intervention_intervened_err": 0.63,
+      "ckpt": "ckpts/dev_study_full_h200/gpt_epoch012.ckpt"
+    },
+    {
+      "epoch": 14,
+      "probe_myours_err": {
+        "7": 0.0123
+      },
+      "probe_myours_err_note": "only the best-performing layer's error was logged for this round; the full per-layer breakdown was lost when the job was preempted and resumed (dev_study.py previously reset its results file on restart instead of reloading it -- fixed after this run).",
+      "intervention_baseline_err": 1.37,
+      "intervention_intervened_err": 0.68,
+      "ckpt": "ckpts/dev_study_full_h200/gpt_epoch014.ckpt"
+    },
+    {
+      "epoch": 16,
+      "probe_myours_err": {
+        "4": 0.02480183960664628,
+        "5": 0.016845620337402556,
+        "6": 0.012245941420820583,
+        "7": 0.010920015259409999,
+        "8": 0.01140481943031535
+      },
+      "intervention_baseline_err": 1.39,
+      "intervention_intervened_err": 0.68,
+      "ckpt": "/mmfs1/home/jdfelo/BilinearOthelloGPT/ckpts/dev_study_full_h200/gpt_epoch016.ckpt",
+      "wall_s": 1824.5
+    },
+    {
+      "epoch": 18,
+      "probe_myours_err": {
+        "4": 0.02438922622075279,
+        "5": 0.01661778886910814,
+        "6": 0.01218236054594779,
+        "7": 0.010728610334011512,
+        "8": 0.011256464055612092
+      },
+      "intervention_baseline_err": 1.39,
+      "intervention_intervened_err": 0.685,
+      "ckpt": "/mmfs1/home/jdfelo/BilinearOthelloGPT/ckpts/dev_study_full_h200/gpt_epoch018.ckpt",
+      "wall_s": 1806.1
+    },
+    {
+      "epoch": 20,
+      "probe_myours_err": {
+        "4": 0.024470689216683605,
+        "5": 0.016957549169209885,
+        "6": 0.012419464225161048,
+        "7": 0.011183610969820235,
+        "8": 0.011677025050864653
+      },
+      "intervention_baseline_err": 1.36,
+      "intervention_intervened_err": 0.685,
+      "ckpt": "/mmfs1/home/jdfelo/BilinearOthelloGPT/ckpts/dev_study_full_h200/gpt_epoch020.ckpt",
+      "wall_s": 1799.4
+    }
+  ]
+}
