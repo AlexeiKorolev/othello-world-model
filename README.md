@@ -84,3 +84,8 @@ will be higher than the paper; the **full** profile targets the paper numbers.
 ## Environment
 Conda env at `$ROOT/env` (torch 2.4.1, in `/scratch` to spare the `/home`
 quota). Cluster conventions live in the `princeton-adroit` skill.
+
+## Compute access
+The `full_h200` and pilot runs under `results/dev_study_*` and
+`results/bench_h200*` were run on the UW Hyak "klone" cluster, under
+Jason Hendrick's account, used with his permission.
