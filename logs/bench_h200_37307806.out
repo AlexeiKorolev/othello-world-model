@@ -1,0 +1,16 @@
+==== bench_speed (H200) ====
+Job 37307806 on g3129  Restart count: 
+Profile: pilot  Tag: h200_bf16_compile  Start: Sun Jul 19 01:43:54 PDT 2026
+name, memory.total [MiB]
+NVIDIA H200, 143771 MiB
+[bench] GPU: NVIDIA H200  (150 GB)
+Dataset created has 110000 sequences, 61 unique words.
+[bench] batch_size=512: 21.5 ms/iter  23832 samples/s  1406090 tok/s  peak 6.0 GB  ~5s/epoch
+[bench] batch_size=1024: 39.7 ms/iter  25816 samples/s  1523172 tok/s  peak 11.5 GB  ~4s/epoch
+[bench] batch_size=2048: 75.0 ms/iter  27304 samples/s  1610916 tok/s  peak 22.5 GB  ~4s/epoch
+[bench] batch_size=4096: 153.9 ms/iter  26611 samples/s  1570032 tok/s  peak 44.5 GB  ~4s/epoch
+[bench] batch_size=8192: 302.7 ms/iter  27063 samples/s  1596744 tok/s  peak 88.6 GB  ~4s/epoch
+[bench] batch_size=16384: OOM (CUDA out of memory. Tried to allocate 3.69 GiB. GPU 0 has a total capacity of 139.80 GiB of which 1.21 GiB is free. Including non-PyTorch memory, this process has 138.58 GiB memory in use. Of the allocated memory 137.83 GiB is allocated by PyTorch, and 25.14 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://docs.pytorch.org/docs/stable/notes/cuda.html#optimizing-memory-usage-with-pytorch-cuda-alloc-conf))
+[bench] DONE. Best throughput: batch_size=2048 (27304 samples/s, 1610916 tok/s). Largest batch that fit: 8192 (88.7 GB peak).
+[bench] wrote /mmfs1/home/jdfelo/BilinearOthelloGPT/results/bench_h200_bf16_compile.json
+Finished: Sun Jul 19 01:51:02 PDT 2026

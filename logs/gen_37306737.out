@@ -1,0 +1,8 @@
+==== gen_data ====
+Job 37306737 on n3057
+Profile: pilot  CPUs: 32  Start: Sun Jul 19 00:50:02 PDT 2026
+[gen_data] profile=pilot n_games=120000 shard_size=100000 cpus=32 out=/mmfs1/home/jdfelo/BilinearOthelloGPT/data
+[gen_data] wrote /mmfs1/home/jdfelo/BilinearOthelloGPT/data/pilot_shard_0000.pkl: 100000 unique games (100000 total, 220s)
+[gen_data] wrote /mmfs1/home/jdfelo/BilinearOthelloGPT/data/pilot_shard_0001.pkl: 20000 unique games (120000 total, 239s)
+[gen_data] DONE: 120000 games in 2 shards, 239s
+Finished: Sun Jul 19 00:54:01 PDT 2026

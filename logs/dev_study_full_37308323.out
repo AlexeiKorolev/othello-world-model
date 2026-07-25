@@ -1,0 +1,24 @@
+==== dev_study (full, H200) ====
+Job 37308323 on g3131  Restart count: 
+Tag: full_h200  Start: Sun Jul 19 02:55:49 PDT 2026
+name, memory.total [MiB]
+NVIDIA H200, 143771 MiB
+[dev_study] 22996015 games -> 22986015 train / 10000 val
+Dataset created has 22986015 sequences, 61 unique words.
+[dev_study] profile=full tag=full_h200 epochs=20 batch_size=4096 probe_every=2 probe_layers=[4, 5, 6, 7, 8]
+[dev_study] epoch 0: best mine/yours probe err 22.44% (L4) | intervention 8.135 -> 8.180 (1744s)
+[dev_study] epoch 2: best mine/yours probe err 5.21% (L7) | intervention 1.410 -> 1.050 (1789s)
+[dev_study] epoch 4: best mine/yours probe err 2.65% (L8) | intervention 1.365 -> 0.685 (1778s)
+[dev_study] epoch 6: best mine/yours probe err 2.14% (L8) | intervention 1.400 -> 0.605 (1735s)
+[dev_study] epoch 8: best mine/yours probe err 1.49% (L7) | intervention 1.365 -> 0.635 (1797s)
+[dev_study] epoch 10: best mine/yours probe err 1.27% (L7) | intervention 1.325 -> 0.655 (1794s)
+[dev_study] epoch 12: best mine/yours probe err 1.28% (L7) | intervention 1.350 -> 0.630 (1780s)
+[dev_study] epoch 14: best mine/yours probe err 1.23% (L7) | intervention 1.370 -> 0.680 (1831s)
+==== dev_study (full, H200) ====
+Job 37308323 on g3130  Restart count: 1
+Tag: full_h200  Start: Sun Jul 19 11:03:58 PDT 2026
+name, memory.total [MiB]
+NVIDIA H200, 143771 MiB
+[dev_study] 22996015 games -> 22986015 train / 10000 val
+Dataset created has 22986015 sequences, 61 unique words.
+[dev_study] profile=full tag=full_h200 epochs=20 batch_size=4096 probe_every=2 probe_layers=[4, 5, 6, 7, 8]

@@ -1,0 +1,43 @@
+==== probe_directions ====
+Job 37611068 on g3073
+Profile: full  layers: 4,7  tag: full_h200  Start: Thu Jul 23 23:56:58 PDT 2026
+name, memory.total [MiB]
+NVIDIA A40, 46068 MiB
+[dirs] layers=[4, 7] epochs=[0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20] device=cuda
+[dirs] epoch 0 extracted (30s)
+[dirs] epoch 2 extracted (43s)
+[dirs] epoch 4 extracted (55s)
+[dirs] epoch 6 extracted (68s)
+[dirs] epoch 8 extracted (80s)
+[dirs] epoch 10 extracted (93s)
+[dirs] epoch 12 extracted (105s)
+[dirs] epoch 14 extracted (118s)
+[dirs] epoch 16 extracted (131s)
+[dirs] epoch 18 extracted (143s)
+[dirs] epoch 20 extracted (156s)
+[dirs] L4 probe epoch 0 done (219s)
+[dirs] L4 probe epoch 2 done (237s)
+[dirs] L4 probe epoch 4 done (254s)
+[dirs] L4 probe epoch 6 done (272s)
+[dirs] L4 probe epoch 8 done (290s)
+[dirs] L4 probe epoch 10 done (307s)
+[dirs] L4 probe epoch 12 done (325s)
+[dirs] L4 probe epoch 14 done (343s)
+[dirs] L4 probe epoch 16 done (360s)
+[dirs] L4 probe epoch 18 done (378s)
+[dirs] L4 probe epoch 20 done (395s)
+[dirs] L4 PCA: PC1-3 explain 9.2% (PC1 3.2%, PC2 3.1%, PC3 2.9%)
+[dirs] L7 probe epoch 0 done (414s)
+[dirs] L7 probe epoch 2 done (431s)
+[dirs] L7 probe epoch 4 done (448s)
+[dirs] L7 probe epoch 6 done (466s)
+[dirs] L7 probe epoch 8 done (483s)
+[dirs] L7 probe epoch 10 done (500s)
+[dirs] L7 probe epoch 12 done (517s)
+[dirs] L7 probe epoch 14 done (535s)
+[dirs] L7 probe epoch 16 done (552s)
+[dirs] L7 probe epoch 18 done (570s)
+[dirs] L7 probe epoch 20 done (587s)
+[dirs] L7 PCA: PC1-3 explain 10.0% (PC1 3.5%, PC2 3.4%, PC3 3.1%)
+[dirs] wrote /mmfs1/home/jdfelo/BilinearOthelloGPT/results/probe_pca3d_full_h200.json and probe_dirs_full_h200.npz in 592s
+Finished: Fri Jul 24 00:08:21 PDT 2026

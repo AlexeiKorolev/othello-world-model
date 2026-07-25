@@ -1,0 +1,57 @@
+{
+  "tag": "h200_bf16_compile",
+  "results": [
+    {
+      "batch_size": 512,
+      "oom": false,
+      "sec_per_iter": 0.0215,
+      "samples_per_sec": 23832.0,
+      "tokens_per_sec": 1406090.3,
+      "peak_mem_gb": 6.0,
+      "est_epoch_sec": 4.6
+    },
+    {
+      "batch_size": 1024,
+      "oom": false,
+      "sec_per_iter": 0.0397,
+      "samples_per_sec": 25816.5,
+      "tokens_per_sec": 1523171.7,
+      "peak_mem_gb": 11.52,
+      "est_epoch_sec": 4.3
+    },
+    {
+      "batch_size": 2048,
+      "oom": false,
+      "sec_per_iter": 0.075,
+      "samples_per_sec": 27303.7,
+      "tokens_per_sec": 1610916.1,
+      "peak_mem_gb": 22.48,
+      "est_epoch_sec": 4.0
+    },
+    {
+      "batch_size": 4096,
+      "oom": false,
+      "sec_per_iter": 0.1539,
+      "samples_per_sec": 26610.7,
+      "tokens_per_sec": 1570032.1,
+      "peak_mem_gb": 44.53,
+      "est_epoch_sec": 4.1
+    },
+    {
+      "batch_size": 8192,
+      "oom": false,
+      "sec_per_iter": 0.3027,
+      "samples_per_sec": 27063.4,
+      "tokens_per_sec": 1596743.5,
+      "peak_mem_gb": 88.65,
+      "est_epoch_sec": 4.1
+    },
+    {
+      "batch_size": 16384,
+      "oom": true
+    }
+  ],
+  "profile": "pilot",
+  "gpu_name": "NVIDIA H200",
+  "gpu_mem_gb": 150.1
+}

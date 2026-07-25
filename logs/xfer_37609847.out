@@ -1,0 +1,84 @@
+==== probe_transfer ====
+Job 37609847 on g3063
+Profile: full  layers: 4,7  games: 2000  tag: full_h200  Start: Thu Jul 23 22:59:54 PDT 2026
+name, memory.total [MiB]
+NVIDIA A40, 46068 MiB
+[transfer] layers=[4, 7] epochs=[0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20] games=2000 probe_epochs=150 device=cuda
+[transfer] epoch 0: acts torch.Size([117961, 512]) mean|h| L4=12.1 (31s)
+[transfer] epoch 2: acts torch.Size([117961, 512]) mean|h| L4=18.3 (44s)
+[transfer] epoch 4: acts torch.Size([117961, 512]) mean|h| L4=39.5 (57s)
+[transfer] epoch 6: acts torch.Size([117961, 512]) mean|h| L4=75.3 (70s)
+[transfer] epoch 8: acts torch.Size([117961, 512]) mean|h| L4=105.7 (83s)
+[transfer] epoch 10: acts torch.Size([117961, 512]) mean|h| L4=123.4 (96s)
+[transfer] epoch 12: acts torch.Size([117961, 512]) mean|h| L4=133.3 (110s)
+[transfer] epoch 14: acts torch.Size([117961, 512]) mean|h| L4=135.0 (123s)
+[transfer] epoch 16: acts torch.Size([117961, 512]) mean|h| L4=133.8 (136s)
+[transfer] epoch 18: acts torch.Size([117961, 512]) mean|h| L4=131.6 (148s)
+[transfer] epoch 20: acts torch.Size([117961, 512]) mean|h| L4=130.7 (160s)
+[transfer] 117961 positions -> 94369 train / 23592 test
+
+[transfer] ===== layer 4 =====
+[transfer] L4 trained probe on epoch 0 (217s)
+[transfer] L4 trained probe on epoch 2 (236s)
+[transfer] L4 trained probe on epoch 4 (257s)
+[transfer] L4 trained probe on epoch 6 (277s)
+[transfer] L4 trained probe on epoch 8 (297s)
+[transfer] L4 trained probe on epoch 10 (318s)
+[transfer] L4 trained probe on epoch 12 (338s)
+[transfer] L4 trained probe on epoch 14 (359s)
+[transfer] L4 trained probe on epoch 16 (379s)
+[transfer] L4 trained probe on epoch 18 (399s)
+[transfer] L4 trained probe on epoch 20 (420s)
+[transfer] L4 control probe epoch 4 seed 1
+[transfer] L4 control probe epoch 4 seed 2
+[transfer] L4 control probe epoch 20 seed 1
+[transfer] L4 control probe epoch 20 seed 2
+[transfer] L4 row epoch 0 done: diag=22.06% -> ep20=52.57% (517s)
+[transfer] L4 row epoch 2 done: diag=6.50% -> ep20=16.21% (532s)
+[transfer] L4 row epoch 4 done: diag=4.23% -> ep20=8.45% (546s)
+[transfer] L4 row epoch 6 done: diag=3.66% -> ep20=3.19% (561s)
+[transfer] L4 row epoch 8 done: diag=3.03% -> ep20=2.85% (576s)
+[transfer] L4 row epoch 10 done: diag=2.65% -> ep20=2.65% (590s)
+[transfer] L4 row epoch 12 done: diag=2.61% -> ep20=2.53% (605s)
+[transfer] L4 row epoch 14 done: diag=2.51% -> ep20=2.47% (619s)
+[transfer] L4 row epoch 16 done: diag=2.39% -> ep20=2.42% (634s)
+[transfer] L4 row epoch 18 done: diag=2.35% -> ep20=2.40% (648s)
+[transfer] L4 row epoch 20 done: diag=2.36% -> ep20=2.36% (663s)
+[transfer] L4 CONTROL epoch 4: cross-seed cosine 0.9991 subspace 0.9989 err 4.23% vs own 4.23%
+[transfer] L4 CONTROL epoch 20: cross-seed cosine 0.9965 subspace 0.9956 err 2.36% vs own 2.36%
+
+[transfer] ===== layer 7 =====
+[transfer] L7 trained probe on epoch 0 (697s)
+[transfer] L7 trained probe on epoch 2 (718s)
+[transfer] L7 trained probe on epoch 4 (738s)
+[transfer] L7 trained probe on epoch 6 (758s)
+[transfer] L7 trained probe on epoch 8 (779s)
+[transfer] L7 trained probe on epoch 10 (799s)
+[transfer] L7 trained probe on epoch 12 (819s)
+[transfer] L7 trained probe on epoch 14 (840s)
+[transfer] L7 trained probe on epoch 16 (860s)
+[transfer] L7 trained probe on epoch 18 (880s)
+[transfer] L7 trained probe on epoch 20 (901s)
+[transfer] L7 control probe epoch 4 seed 1
+[transfer] L7 control probe epoch 4 seed 2
+[transfer] L7 control probe epoch 20 seed 1
+[transfer] L7 control probe epoch 20 seed 2
+[transfer] L7 row epoch 0 done: diag=22.12% -> ep20=52.88% (997s)
+[transfer] L7 row epoch 2 done: diag=5.11% -> ep20=14.78% (1011s)
+[transfer] L7 row epoch 4 done: diag=2.59% -> ep20=10.19% (1026s)
+[transfer] L7 row epoch 6 done: diag=2.13% -> ep20=2.97% (1040s)
+[transfer] L7 row epoch 8 done: diag=1.43% -> ep20=1.98% (1055s)
+[transfer] L7 row epoch 10 done: diag=1.20% -> ep20=1.66% (1069s)
+[transfer] L7 row epoch 12 done: diag=1.23% -> ep20=1.40% (1084s)
+[transfer] L7 row epoch 14 done: diag=1.17% -> ep20=1.25% (1098s)
+[transfer] L7 row epoch 16 done: diag=1.05% -> ep20=1.19% (1113s)
+[transfer] L7 row epoch 18 done: diag=1.05% -> ep20=1.15% (1128s)
+[transfer] L7 row epoch 20 done: diag=1.09% -> ep20=1.09% (1142s)
+[transfer] L7 CONTROL epoch 4: cross-seed cosine 0.9992 subspace 0.9991 err 2.60% vs own 2.59%
+[transfer] L7 CONTROL epoch 20: cross-seed cosine 0.9974 subspace 0.9971 err 1.09% vs own 1.09%
+
+[transfer] wrote /mmfs1/home/jdfelo/BilinearOthelloGPT/results/probe_transfer_full_h200.json
+[transfer] wrote /mmfs1/home/jdfelo/BilinearOthelloGPT/results/probe_transfer_full_h200_L4.png
+[transfer] wrote /mmfs1/home/jdfelo/BilinearOthelloGPT/results/probe_transfer_full_h200_L7.png
+[transfer] done in 1166s
+Finished: Thu Jul 23 23:20:37 PDT 2026

@@ -1,0 +1,54 @@
+==== dev_study ====
+Job 37307264 on g3102
+Profile: pilot  GPUs: 0  Start: Sun Jul 19 01:18:13 PDT 2026
+name, memory.total [MiB]
+NVIDIA L40S, 46068 MiB
+[dev_study] 120000 games -> 110000 train / 10000 val
+Dataset created has 110000 sequences, 61 unique words.
+[dev_study] profile=pilot epochs=40 batch_size=1024 probe_every=2 probe_layers=[4, 5, 6, 7]
+[dev_study] epoch 0: best mine/yours probe err 25.85% (L4) | intervention 8.250 -> 8.175 (44s)
+[dev_study] epoch 2: best mine/yours probe err 23.74% (L4) | intervention 4.250 -> 4.125 (33s)
+[dev_study] epoch 4: best mine/yours probe err 20.51% (L4) | intervention 3.225 -> 3.025 (34s)
+[dev_study] epoch 6: best mine/yours probe err 12.23% (L4) | intervention 2.475 -> 2.350 (33s)
+[dev_study] epoch 8: best mine/yours probe err 11.15% (L5) | intervention 2.150 -> 1.975 (33s)
+[dev_study] epoch 10: best mine/yours probe err 10.73% (L5) | intervention 2.075 -> 1.950 (33s)
+[dev_study] epoch 12: best mine/yours probe err 10.27% (L5) | intervention 1.875 -> 1.675 (33s)
+[dev_study] epoch 14: best mine/yours probe err 9.85% (L5) | intervention 1.900 -> 1.625 (33s)
+[dev_study] epoch 16: best mine/yours probe err 9.77% (L5) | intervention 1.825 -> 1.675 (33s)
+[dev_study] epoch 18: best mine/yours probe err 9.64% (L5) | intervention 1.875 -> 1.675 (33s)
+[dev_study] epoch 20: best mine/yours probe err 9.82% (L5) | intervention 1.850 -> 1.725 (33s)
+[dev_study] epoch 22: best mine/yours probe err 9.65% (L5) | intervention 1.875 -> 1.675 (34s)
+[dev_study] epoch 24: best mine/yours probe err 9.69% (L5) | intervention 1.950 -> 1.600 (33s)
+[dev_study] epoch 26: best mine/yours probe err 9.81% (L5) | intervention 1.975 -> 1.625 (33s)
+[dev_study] epoch 28: best mine/yours probe err 9.91% (L5) | intervention 1.925 -> 1.625 (33s)
+[dev_study] epoch 30: best mine/yours probe err 9.94% (L5) | intervention 2.075 -> 1.675 (33s)
+[dev_study] epoch 32: best mine/yours probe err 9.98% (L5) | intervention 2.075 -> 1.700 (33s)
+[dev_study] epoch 34: best mine/yours probe err 10.08% (L5) | intervention 2.000 -> 1.700 (33s)
+[dev_study] epoch 36: best mine/yours probe err 10.08% (L5) | intervention 2.100 -> 1.750 (33s)
+[dev_study] epoch 38: best mine/yours probe err 10.08% (L5) | intervention 2.100 -> 1.700 (34s)
+[dev_study] epoch 40: best mine/yours probe err 10.10% (L5) | intervention 2.050 -> 1.675 (33s)
+[dev_study] training done in 2626s -> /mmfs1/home/jdfelo/BilinearOthelloGPT/ckpts/gpt_synthetic_pilot.ckpt
+[dev_study] LEGAL-MOVE ERROR = 2.9013%  (57229/58939 legal)
+[dev_study] running final full-scale stage: /gscratch/stf/jdfelo/envs/othello/bin/python nanda_probe.py --config /mmfs1/home/jdfelo/BilinearOthelloGPT/configs/config.yaml --profile pilot
+[nanda] loaded /mmfs1/home/jdfelo/BilinearOthelloGPT/ckpts/gpt_synthetic_pilot.ckpt
+[nanda] extracted 117858 positions x 64 tiles in 13s
+[nanda] layer 1: linear mine/yours 15.52%  linear absolute 20.37%
+[nanda] layer 2: linear mine/yours 11.68%  linear absolute 19.20%
+[nanda] layer 3: linear mine/yours 10.62%  linear absolute 19.30%
+[nanda] layer 4: linear mine/yours 10.02%  linear absolute 19.43%
+[nanda] layer 5: linear mine/yours 9.85%  linear absolute 19.63%
+[nanda] layer 6: linear mine/yours 10.16%  linear absolute 19.88%
+[nanda] layer 7: linear mine/yours 10.44%  linear absolute 20.10%
+[nanda] layer 8: linear mine/yours 10.73%  linear absolute 20.33%
+[nanda] best linear mine/yours: layer 5 err 9.85%  -> /mmfs1/home/jdfelo/BilinearOthelloGPT/results/nanda_probe_pilot.json
+[nanda] wrote /mmfs1/home/jdfelo/BilinearOthelloGPT/results/nanda_probe_pilot.png
+[dev_study] running final full-scale stage: /gscratch/stf/jdfelo/envs/othello/bin/python intervene_nanda.py --config /mmfs1/home/jdfelo/BilinearOthelloGPT/configs/config.yaml --profile pilot
+[intervene-nanda] trained LINEAR mine/yours probe at layer 4
+[intervene-nanda] trained LINEAR mine/yours probe at layer 5
+[intervene-nanda] trained LINEAR mine/yours probe at layer 6
+[intervene-nanda] trained LINEAR mine/yours probe at layer 7
+[intervene-nanda] trained LINEAR mine/yours probe at layer 8
+[intervene-nanda] LINEAR mine/yours intervention: intervened err 1.740 vs baseline 2.140
+[intervene-nanda] wrote /mmfs1/home/jdfelo/BilinearOthelloGPT/results/intervention_nanda_pilot.json
+[dev_study] wrote /mmfs1/home/jdfelo/BilinearOthelloGPT/results/dev_study_pilot.png
+Finished: Sun Jul 19 02:44:19 PDT 2026

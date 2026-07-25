@@ -1,0 +1,49 @@
+==== probe_transfer ====
+Job 37604301 on g3102
+Profile: full  layers: 7  games: 40  tag: smoketest  Start: Thu Jul 23 20:57:06 PDT 2026
+name, memory.total [MiB]
+NVIDIA L40S, 46068 MiB
+[transfer] layers=[7] epochs=[0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20] games=40 probe_epochs=4 device=cuda
+[transfer] epoch 0: acts torch.Size([2359, 512]) mean|h| L7=16.4 (30s)
+[transfer] epoch 2: acts torch.Size([2359, 512]) mean|h| L7=38.0 (31s)
+[transfer] epoch 4: acts torch.Size([2359, 512]) mean|h| L7=79.8 (33s)
+[transfer] epoch 6: acts torch.Size([2359, 512]) mean|h| L7=141.0 (34s)
+[transfer] epoch 8: acts torch.Size([2359, 512]) mean|h| L7=190.8 (35s)
+[transfer] epoch 10: acts torch.Size([2359, 512]) mean|h| L7=220.1 (36s)
+[transfer] epoch 12: acts torch.Size([2359, 512]) mean|h| L7=235.3 (38s)
+[transfer] epoch 14: acts torch.Size([2359, 512]) mean|h| L7=236.2 (39s)
+[transfer] epoch 16: acts torch.Size([2359, 512]) mean|h| L7=232.4 (41s)
+[transfer] epoch 18: acts torch.Size([2359, 512]) mean|h| L7=228.5 (42s)
+[transfer] epoch 20: acts torch.Size([2359, 512]) mean|h| L7=225.3 (43s)
+[transfer] 2359 positions -> 1888 train / 471 test
+
+[transfer] ===== layer 7 =====
+[transfer] L7 trained probe on epoch 0 (87s)
+[transfer] L7 trained probe on epoch 2 (88s)
+[transfer] L7 trained probe on epoch 4 (88s)
+[transfer] L7 trained probe on epoch 6 (88s)
+[transfer] L7 trained probe on epoch 8 (88s)
+[transfer] L7 trained probe on epoch 10 (88s)
+[transfer] L7 trained probe on epoch 12 (88s)
+[transfer] L7 trained probe on epoch 14 (88s)
+[transfer] L7 trained probe on epoch 16 (88s)
+[transfer] L7 trained probe on epoch 18 (88s)
+[transfer] L7 trained probe on epoch 20 (88s)
+[transfer] L7 control probe epoch 20 seed 1
+[transfer] L7 row epoch 0 done: diag=38.31% -> ep20=51.92% (90s)
+[transfer] L7 row epoch 2 done: diag=32.25% -> ep20=38.35% (92s)
+[transfer] L7 row epoch 4 done: diag=31.45% -> ep20=36.73% (95s)
+[transfer] L7 row epoch 6 done: diag=32.30% -> ep20=34.88% (97s)
+[transfer] L7 row epoch 8 done: diag=33.25% -> ep20=34.40% (99s)
+[transfer] L7 row epoch 10 done: diag=33.62% -> ep20=34.66% (101s)
+[transfer] L7 row epoch 12 done: diag=34.21% -> ep20=34.65% (103s)
+[transfer] L7 row epoch 14 done: diag=34.23% -> ep20=34.41% (106s)
+[transfer] L7 row epoch 16 done: diag=33.75% -> ep20=33.98% (108s)
+[transfer] L7 row epoch 18 done: diag=33.60% -> ep20=33.66% (110s)
+[transfer] L7 row epoch 20 done: diag=33.56% -> ep20=33.56% (112s)
+[transfer] L7 CONTROL epoch 20: cross-seed cosine 0.0246 subspace 0.3097 err 33.28% vs own 33.56%
+
+[transfer] wrote /mmfs1/home/jdfelo/BilinearOthelloGPT/results/probe_transfer_smoketest.json
+[transfer] wrote /mmfs1/home/jdfelo/BilinearOthelloGPT/results/probe_transfer_smoketest_L7.png
+[transfer] done in 120s
+Finished: Thu Jul 23 21:00:47 PDT 2026

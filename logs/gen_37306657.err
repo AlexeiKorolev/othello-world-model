@@ -1,0 +1,35 @@
+shard 1/2:   0%|          | 0/100000 [00:00<?, ?it/s]shard 1/2:   0%|          | 0/100000 [00:23<?, ?it/s]
+multiprocessing.pool.RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "/gscratch/stf/jdfelo/envs/othello/lib/python3.11/multiprocessing/pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+                    ^^^^^^^^^^^^^^^^^^^
+  File "/gscratch/stf/jdfelo/envs/othello/lib/python3.11/multiprocessing/pool.py", line 48, in mapstar
+    return list(map(*args))
+           ^^^^^^^^^^^^^^^^
+  File "/mmfs1/home/jdfelo/BilinearOthelloGPT/src/gen_data.py", line 25, in _gen_one
+    from data.othello import get_ood_game
+  File "/mmfs1/home/jdfelo/BilinearOthelloGPT/upstream/data/__init__.py", line 1, in <module>
+    from .othello import get as get_othello
+  File "/mmfs1/home/jdfelo/BilinearOthelloGPT/upstream/data/othello.py", line 2, in <module>
+    import pgn
+ModuleNotFoundError: No module named 'pgn'
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/mmfs1/home/jdfelo/BilinearOthelloGPT/src/gen_data.py", line 79, in <module>
+    main()
+  File "/mmfs1/home/jdfelo/BilinearOthelloGPT/src/gen_data.py", line 61, in main
+    for g in tqdm(pool.imap_unordered(_gen_one, seeds, chunksize=64),
+  File "/gscratch/stf/jdfelo/envs/othello/lib/python3.11/site-packages/tqdm/std.py", line 1181, in __iter__
+    for obj in iterable:
+  File "/gscratch/stf/jdfelo/envs/othello/lib/python3.11/multiprocessing/pool.py", line 451, in <genexpr>
+    return (item for chunk in result for item in chunk)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/gscratch/stf/jdfelo/envs/othello/lib/python3.11/multiprocessing/pool.py", line 873, in next
+    raise value
+ModuleNotFoundError: No module named 'pgn'
+srun: error: n3057: task 0: Exited with exit code 1

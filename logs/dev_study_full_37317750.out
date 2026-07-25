@@ -1,0 +1,38 @@
+==== dev_study (full, H200) ====
+Job 37317750 on g3130  Restart count: 
+Tag: full_h200  Start: Sun Jul 19 11:13:20 PDT 2026
+name, memory.total [MiB]
+NVIDIA H200, 143771 MiB
+[dev_study] 22996015 games -> 22986015 train / 10000 val
+Dataset created has 22986015 sequences, 61 unique words.
+[dev_study] profile=full tag=full_h200 epochs=20 batch_size=4096 probe_every=2 probe_layers=[4, 5, 6, 7, 8]
+[resume] RNG restore skipped: RNG state must be a torch.ByteTensor
+[resume] resumed at epoch 15/20, tokens 20342623275
+[dev_study] epoch 16: best mine/yours probe err 1.09% (L7) | intervention 1.390 -> 0.680 (1826s)
+[dev_study] epoch 18: best mine/yours probe err 1.07% (L7) | intervention 1.390 -> 0.685 (1806s)
+[dev_study] epoch 20: best mine/yours probe err 1.12% (L7) | intervention 1.360 -> 0.685 (1799s)
+[dev_study] training done in 10236s -> /mmfs1/home/jdfelo/BilinearOthelloGPT/ckpts/gpt_synthetic_full_h200.ckpt
+[dev_study] LEGAL-MOVE ERROR = 0.0458%  (58924/58951 legal)
+[dev_study] running final full-scale stage: /gscratch/stf/jdfelo/envs/othello/bin/python nanda_probe.py --config /mmfs1/home/jdfelo/BilinearOthelloGPT/configs/config.yaml --profile full --ckpt /mmfs1/home/jdfelo/BilinearOthelloGPT/ckpts/gpt_synthetic_full_h200.ckpt --tag full_h200
+[nanda] loaded /mmfs1/home/jdfelo/BilinearOthelloGPT/ckpts/gpt_synthetic_full_h200.ckpt
+[nanda] extracted 117961 positions x 64 tiles in 22s
+[nanda] layer 1: linear mine/yours 9.47%  linear absolute 19.26%
+[nanda] layer 2: linear mine/yours 6.05%  linear absolute 18.43%
+[nanda] layer 3: linear mine/yours 3.66%  linear absolute 18.13%
+[nanda] layer 4: linear mine/yours 2.45%  linear absolute 18.17%
+[nanda] layer 5: linear mine/yours 1.70%  linear absolute 17.60%
+[nanda] layer 6: linear mine/yours 1.24%  linear absolute 17.50%
+[nanda] layer 7: linear mine/yours 1.12%  linear absolute 17.68%
+[nanda] layer 8: linear mine/yours 1.17%  linear absolute 17.72%
+[nanda] best linear mine/yours: layer 7 err 1.12%  -> /mmfs1/home/jdfelo/BilinearOthelloGPT/results/nanda_probe_full_h200.json
+[nanda] wrote /mmfs1/home/jdfelo/BilinearOthelloGPT/results/nanda_probe_full_h200.png
+[dev_study] running final full-scale stage: /gscratch/stf/jdfelo/envs/othello/bin/python intervene_nanda.py --config /mmfs1/home/jdfelo/BilinearOthelloGPT/configs/config.yaml --profile full --ckpt /mmfs1/home/jdfelo/BilinearOthelloGPT/ckpts/gpt_synthetic_full_h200.ckpt --tag full_h200
+[intervene-nanda] trained LINEAR mine/yours probe at layer 4
+[intervene-nanda] trained LINEAR mine/yours probe at layer 5
+[intervene-nanda] trained LINEAR mine/yours probe at layer 6
+[intervene-nanda] trained LINEAR mine/yours probe at layer 7
+[intervene-nanda] trained LINEAR mine/yours probe at layer 8
+[intervene-nanda] LINEAR mine/yours intervention: intervened err 0.670 vs baseline 1.360
+[intervene-nanda] wrote /mmfs1/home/jdfelo/BilinearOthelloGPT/results/intervention_nanda_full_h200.json
+[dev_study] wrote /mmfs1/home/jdfelo/BilinearOthelloGPT/results/dev_study_full_h200.png
+Finished: Sun Jul 19 15:22:10 PDT 2026

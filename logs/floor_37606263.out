@@ -1,0 +1,13 @@
+==== entropy_floor ====
+Job 37606263 on n3492
+Profile: full  n_games: 20000  Start: Thu Jul 23 21:24:23 PDT 2026
+[floor] profile=full cpus=40 n_games=20000
+[floor] sampled 20000 train games from ['full_shard_0216.pkl', 'full_shard_0098.pkl', 'full_shard_0194.pkl', 'full_shard_0227.pkl', 'full_shard_0107.pkl', 'full_shard_0010.pkl']
+[floor] TRAIN loss floor = 2.01081 nats (+/- 0.00056) over 1179358 positions; mean legal moves 8.619
+[floor] VAL loss floor  = 1.92250 nats (skew check only -- val is sorted(games)[:N], all games share the lexicographically smallest opening)
+[floor] intervention reference points over 200 cases (of 1001 in the benchmark)
+[floor] legality floor (perfect, edit-aware)      = 0.000
+[floor] legality ceiling (perfect, edit-unaware)  = 1.388 [best 0.565, worst 1.540]
+[floor] mean legal moves: real 10.62  counterfactual 10.01  shared 9.26  symdiff 2.10
+[floor] wrote /mmfs1/home/jdfelo/BilinearOthelloGPT/results/floors_full_h200.json in 208s
+Finished: Thu Jul 23 21:28:09 PDT 2026
