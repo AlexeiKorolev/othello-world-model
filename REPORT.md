@@ -74,6 +74,11 @@ for the entire run.
 - Layer profile: error falls monotonically L1→L7 (9.5% → 1.12%), flat at L8 —
   the board is *built* through the mid stack and *consumed* at the top.
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="results/figs/fig1_linearity_dark.png">
+  <img alt="Linear probe error by layer, log scale. The absolute black/white probe stays flat near 18% across all 8 layers. The player-relative mine/yours probe falls from 9.5% at layer 1 to 1.17% at layer 8, a 15.8x gap at layer 7." src="results/figs/fig1_linearity_light.png" width="720">
+</picture>
+
 ## 5. Result 3 — Causal use, now with a calibrated scale
 
 - **Intervention**: train mine/yours probes at L4–L8, edit one tile in the
@@ -89,6 +94,11 @@ for the entire run.
   (1.36 vs 1.388 — as it must), and the intervention moves it **~51% of the way
   to a perfect edit-follower**. The edit is genuinely causal, and it's
   genuinely partial. This replaces a previously uncalibrated metric.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="results/figs/fig2_intervention_dark.png">
+  <img alt="Horizontal bars of illegal moves in the model's top-N. Un-intervened model 1.36, sitting on the oracle ceiling of 1.39 that ignores the edit. After the board edit 0.67, roughly halfway to the oracle floor of 0.0. The edit closes 51% of the gap." src="results/figs/fig2_intervention_light.png" width="760">
+</picture>
 
 ## 6. Result 4 — Bilinear vs GELU: same task error, worse-read board
 
@@ -147,6 +157,11 @@ for the entire run.
 - **Headline**: the world model **is** weight-recoverable — just from attention
   OV circuits, not from MLPs.
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="results/figs/fig5_where_dark.png">
+  <img alt="Two panels, GELU and bilinear. Each plots every component's correlation with the board readout against its layer. Attention heads (circles) reach 0.45 to 0.61 in the middle layers; 18 of 64 heads clear 0.3 in GELU and 9 of 64 in bilinear. All 8 MLPs (diamonds) sit at or below 0.22 in both architectures." src="results/figs/fig5_where_light.png" width="940">
+</picture>
+
 ## 8. Result 6 — Developmental trace: when does the world model appear?
 
 Probing + intervening at every 2nd epoch of a 20-epoch full run:
@@ -169,6 +184,11 @@ Probing + intervening at every 2nd epoch of a 20-epoch full run:
 - Epoch-0 numbers double as the random-init control (22% probe error is the
   class-prior floor; intervention does nothing).
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="results/figs/fig3_devtrace_dark.png">
+  <img alt="Two stacked panels over training epochs 0 to 20, log scale. Top: best-layer probe error falls from 22.4% at random init to 2.65% by epoch 4 and continues down to 1.12% by epoch 20. Bottom: the un-intervened and intervened illegal-move counts separate by epoch 2 and are flat from epoch 4 onward at about 1.37 versus 0.68." src="results/figs/fig3_devtrace_light.png" width="720">
+</picture>
+
 ## 9. Result 7 — The representation keeps rotating *(newest result)*
 
 Probe-transfer study: train a probe on epoch *i* activations, apply it to
@@ -187,6 +207,11 @@ epoch *j*; also compare probe directions directly.
   the board is written keeps slowly rotating for the whole run**. Probes are
   checkpoint-specific; "the board direction" is not a fixed object across
   training.
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="results/figs/fig4_transfer_dark.png">
+  <img alt="An 11 by 11 heatmap of cosine similarity between layer-7 probe directions trained at different epochs. The diagonal is 1 by construction; values decay smoothly away from it, from 0.99 between adjacent late epochs down to 0.53 between epoch 2 and epoch 20, and about 0.02 for anything against epoch 0." src="results/figs/fig4_transfer_light.png" width="660">
+</picture>
+
 - **Geometry side-note**: the 64 tile directions are **not** low-dimensional —
   top-3 PCs explain only **9.2% (L4) / 10.0% (L7)**. No compact 3D board
   manifold; the board is a genuinely high-rank code.
@@ -253,9 +278,18 @@ epoch *j*; also compare probe directions directly.
 | Developmental study | `src/dev_study.py` | `slurm/dev_study_full_h200.slurm` | `dev_study_full_h200.json` |
 | Probe transfer | `src/probe_transfer.py` | `slurm/probe_transfer.slurm` | `probe_transfer_full_h200.json` |
 | Probe geometry | `src/probe_directions.py` | `slurm/probe_directions.slurm` | `probe_pca3d_full_h200.json` |
+| Report figures | `src/report_figs.py` | `slurm/report_figs.slurm` | `results/figs/*.png` |
 
 Longer-form writeups: `results/nanda_linear_probe.md`,
 `results/bilinear_comparison.md`, `results/weight_space_interpretability.md`.
+
+**Figures.** The five above are regenerated from the result JSONs by
+`sbatch slurm/report_figs.slurm` (light + dark variants; the report serves each
+via `<picture>`). Additional per-study plots already in `results/`:
+`attn_ov_board_full*_transfer.png` (the 64×64 OV tile→tile transfer matrices),
+`bilinear_eigen_full_bilinear_{spectra,effrank,recon}.png`,
+`board_map_full{,_bilinear}.png`, `nanda_probe_full*.png`,
+`probe_transfer_full_h200_L{4,7}.png`, `dev_study_full_h200.png`.
 
 ## 14. References
 
