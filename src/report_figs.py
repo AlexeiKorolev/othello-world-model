@@ -213,65 +213,9 @@ def fig_transfer(R, out, tag):
     cb = fig.colorbar(im, ax=ax, fraction=0.045, pad=0.04)
     cb.set_label("mean cosine between probe directions", color=T["text2"])
     cb.outline.set_visible(False)
-    title(ax, "The board directions rotate for the whole run",
-          f"Layer 7. Same-epoch, different-seed control: {ctl:.3f}")
+    title(ax, "The optimal linear readout keeps drifting",
+          f"Layer 7 probe directions. Same-epoch, different-seed control: {ctl:.3f}")
     save(fig, out, f"fig4_transfer_{tag}")
-
-
-# ---------------------------------------------------------------- fig 5
-def fig_transfer_err(R, out, tag):
-    """Transfer ERROR under the three output corrections. fig4 shows the probe
-    directions rotating; this shows what that costs at decode time, and splits
-    the cost into 'mere rescaling' (raw -> global -> pertile) vs the part that
-    survives recalibration and is therefore genuine drift."""
-    d = json.load(open(f"{R}/probe_transfer_full_h200.json"))
-    ep = d["epochs"]
-    corrs = [("raw", "raw logits"),
-             ("global", "global gain + class offsets (4 params)"),
-             ("pertile", "per-tile gain + offsets (256 params)")]
-    Ms = {c: np.array(d["by_layer"]["7"]["transfer_err"][c]) * 100 for c, _ in corrs}
-    own = Ms["pertile"][ep.index(20), ep.index(20)]
-
-    cmap = LinearSegmentedColormap.from_list("seq", T["seq"])
-    # shared log scale: errors span 1% -> 50%, linear would flatten the good end
-    vmin, vmax = 1.0, 50.0
-    norm = matplotlib.colors.LogNorm(vmin=vmin, vmax=vmax)
-
-    fig, axes = plt.subplots(1, 3, figsize=(15.4, 5.4))
-    for ax, (c, sub) in zip(axes, corrs):
-        M = np.clip(Ms[c], vmin, vmax)
-        im = ax.imshow(M, cmap=cmap, norm=norm, origin="lower")
-        for i in range(len(ep)):
-            for j in range(len(ep)):
-                v = Ms[c][i, j]
-                hi = norm(np.clip(v, vmin, vmax)) > 0.62
-                ax.text(j, i, f"{v:.0f}" if v >= 10 else f"{v:.1f}",
-                        ha="center", va="center", fontsize=7.0,
-                        color=T["cell_hi"] if hi else T["text"])
-        ax.set_xticks(range(len(ep)), ep)
-        ax.set_yticks(range(len(ep)), ep)
-        ax.set_xlabel("activations from epoch")
-        if ax is axes[0]:
-            ax.set_ylabel("probe trained on epoch")
-        for s in ax.spines.values():
-            s.set_visible(False)
-        ax.tick_params(length=0)
-        ax.set_title(c, loc="left", pad=22)
-        ax.annotate(sub, xy=(0, 1), xycoords="axes fraction", xytext=(0, 6),
-                    textcoords="offset points", va="bottom", ha="left",
-                    fontsize=8.5, color=T["text2"])
-
-    cb = fig.colorbar(im, ax=axes, fraction=0.022, pad=0.02)
-    cb.set_label("probe decode error, % (log scale)", color=T["text2"])
-    cb.outline.set_visible(False)
-    fig.suptitle("Most of the transfer collapse is rescaling — but not all of it",
-                 x=0.085, y=1.06, ha="left", fontsize=13.5, fontweight="semibold",
-                 color=T["text"])
-    fig.text(0.085, 1.005,
-             f"Layer 7. Diagonal = probe on its own checkpoint (epoch 20: {own:.2f}%). "
-             "Recalibration only rescales the output — it never re-aims the probe.",
-             ha="left", fontsize=9.5, color=T["text2"])
-    save(fig, out, f"fig5_transfererr_{tag}")
 
 
 if __name__ == "__main__":
@@ -293,6 +237,5 @@ if __name__ == "__main__":
         fig_intervention(a.results, a.out, tag)
         fig_dev(a.results, a.out, tag)
         fig_transfer(a.results, a.out, tag)
-        fig_transfer_err(a.results, a.out, tag)
         print(f"[figs] wrote {tag} theme")
     print("[figs] done ->", a.out)
