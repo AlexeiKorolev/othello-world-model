@@ -1,0 +1,25 @@
+==== ood_eval ====
+Job 38014315 on g3050
+Profile: full  Arch: gelu  Args: --n-games 300 --n-policy-games 300  Start: Sun Aug  2 01:26:28 PDT 2026
+[ood] loaded /mmfs1/home/jdfelo/BilinearOthelloGPT/ckpts/gpt_synthetic_full_h200.ckpt on cuda
+
+[ood] === suite 1: orientation ===
+[ood] identity err = 0.1074%  (17694 positions)
+[ood] identity   legal=1.000  err= 0.1074%  tv=0.0000  argmax_agree=100.00%  in-dist
+[ood] rot90      legal=0.000  err= 4.4083%  tv=0.1363  argmax_agree= 15.34%  COLOUR-SWAPPED (ood)
+[ood] rot180     legal=1.000  err= 0.0904%  tv=0.0248  argmax_agree= 25.08%  in-dist
+[ood] rot270     legal=0.000  err= 6.0416%  tv=0.1168  argmax_agree= 15.72%  COLOUR-SWAPPED (ood)
+[ood] flip_h     legal=0.000  err=10.3481%  tv=0.1274  argmax_agree= 15.17%  COLOUR-SWAPPED (ood)
+[ood] flip_v     legal=0.000  err= 2.0120%  tv=0.1111  argmax_agree= 14.90%  COLOUR-SWAPPED (ood)
+[ood] transpose  legal=1.000  err= 0.1187%  tv=0.0253  argmax_agree= 17.13%  in-dist
+[ood] antitrans  legal=1.000  err= 0.0961%  tv=0.0251  argmax_agree= 17.55%  in-dist
+
+[ood] === suite 2: policy shift ===
+[ood] uniform       err=0.0339%  mean_len=60.0  mean_legal=8.55
+[ood] max_flip      err=0.0848%  mean_len=60.0  mean_legal=8.58
+[ood] min_flip      err=0.0847%  mean_len=60.0  mean_legal=8.56
+[ood] corner_first  err=0.5544%  mean_len=59.9  mean_legal=6.47
+[ood] edge_avoid    err=0.0567%  mean_len=59.8  mean_legal=10.05
+
+[ood] wrote /mmfs1/home/jdfelo/BilinearOthelloGPT/bag_of_heuristics/results/ood_eval_full.json
+Finished: Sun Aug  2 01:30:33 PDT 2026
