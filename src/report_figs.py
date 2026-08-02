@@ -1,6 +1,6 @@
 """Report figures for REPORT.md.
 
-Renders the five headline figures from the existing results/*.json, in both a
+Renders the four headline figures from the existing results/*.json, in both a
 light and a dark theme (REPORT.md serves them via <picture>, so GitHub picks
 the one matching the reader's theme).
 
@@ -218,43 +218,6 @@ def fig_transfer(R, out, tag):
     save(fig, out, f"fig4_transfer_{tag}")
 
 
-# ---------------------------------------------------------------- fig 5
-def fig_where(R, out, tag):
-    fig, axes = plt.subplots(1, 2, figsize=(9.4, 4.4), sharey=True,
-                             gridspec_kw=dict(wspace=0.08))
-    for ax, (arch, fn) in zip(axes, [("GELU", "board_map_full.json"),
-                                     ("bilinear", "board_map_full_bilinear.json")]):
-        comps = json.load(open(f"{R}/{fn}"))["components"]
-        heads = [(int(k[1]), v["board_corr"]) for k, v in comps.items() if k.startswith("A")]
-        mlps = [(int(k[1]), v["board_corr"]) for k, v in comps.items() if k.startswith("M")]
-        rng = np.random.default_rng(0)
-        hx = [l + rng.uniform(-0.22, 0.22) for l, _ in heads]
-        ax.grid(axis="y", lw=0.8, alpha=0.9)
-        ax.set_axisbelow(True)
-        ax.axhline(0.3, color=T["muted"], ls=(0, (4, 3)), lw=1.3)
-        ax.scatter(hx, [c for _, c in heads], s=46, color=T["s1"], marker="o",
-                   alpha=0.85, edgecolor=T["surface"], linewidth=0.8,
-                   label="attention head", zorder=3)
-        ax.scatter([l for l, _ in mlps], [c for _, c in mlps], s=95, color=T["s2"],
-                   marker="D", edgecolor=T["surface"], linewidth=0.9,
-                   label="MLP", zorder=4)
-        n_hi = sum(c > 0.3 for _, c in heads)
-        ax.set_title(f"{arch}   -   {n_hi}/64 heads above 0.3, 0/8 MLPs",
-                     loc="left", fontsize=10.5, color=T["text2"], pad=6)
-        ax.set_xlabel("layer")
-        ax.set_xticks(range(1, 9))
-        ax.set_xlim(0.4, 8.6)
-    axes[0].set_ylabel("correlation with the board readout")
-    axes[0].text(0.55, 0.315, "board_corr = 0.3", color=T["text2"], fontsize=9)
-    axes[0].legend(frameon=False, fontsize=10, labelcolor=T["text2"], loc="upper left")
-    fig.suptitle("The world model lives in attention, not in MLPs", x=0.125, y=1.015,
-                 ha="left", fontsize=12.5, fontweight="semibold", color=T["text"])
-    fig.text(0.125, 0.965, "Contribution of every component to the linear board readout "
-             "(exact decomposition, reconstruction corr 1.000)",
-             ha="left", fontsize=9.5, color=T["text2"])
-    save(fig, out, f"fig5_where_{tag}")
-
-
 if __name__ == "__main__":
     p = argparse.ArgumentParser()
     p.add_argument("--results", default="../results")
@@ -274,6 +237,5 @@ if __name__ == "__main__":
         fig_intervention(a.results, a.out, tag)
         fig_dev(a.results, a.out, tag)
         fig_transfer(a.results, a.out, tag)
-        fig_where(a.results, a.out, tag)
         print(f"[figs] wrote {tag} theme")
     print("[figs] done ->", a.out)

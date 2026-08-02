@@ -1,6 +1,6 @@
-# Othello-GPT: Where the World Model Lives, and How It Gets There
+# Othello-GPT: A Linear, Causal Board Model and How It Emerges
 
-**Research report — outline form.** Last updated 2026-08-01.
+**Research report — outline form.** Last updated 2026-08-02.
 Repo: `BilinearOthelloGPT` · all numbers below trace to a file in `results/`.
 
 ---
@@ -8,27 +8,25 @@ Repo: `BilinearOthelloGPT` · all numbers below trace to a file in `results/`.
 ## 0. One-paragraph summary
 
 We reproduce Othello-GPT (Li et al. 2023) at full scale, then push past
-replication with four new lines of evidence. The board world-model is **linear in
-the player-relative (mine/yours) frame**, **causally used**, and — the main
-finding — **stored in attention, not in MLPs**: it is recoverable directly from
-attention OV *weights* as a near-diagonal tile→tile copy map, while the MLPs
-(including exactly-analysable bilinear MLPs) contribute essentially nothing to the
-board readout. Training-time tracing shows the board appears very early
-(~epoch 2–4 of 20) and its *causal* usefulness saturates before its
-*decodability* does, while the probe directions themselves keep slowly rotating
-for the entire run.
+replication on three fronts. The board world-model is **linear in the
+player-relative (mine/yours) frame** and **causally used** — and we calibrate
+just *how* causally used, against oracle bounds computed from the game engine.
+Training-time tracing then shows the board appears very early (~epoch 2–4 of 20)
+and its *causal* usefulness saturates well before its *decodability* does, while
+the probe directions themselves keep slowly rotating for the entire run.
+Swapping the MLPs for bilinear MLPs solves the task equally well but leaves the
+board measurably harder to read.
 
 ---
 
-## 1. Headline findings (the five things worth remembering)
+## 1. Headline findings (the four things worth remembering)
 
 | # | Finding | Key number | Source |
 |---|---|---|---|
 | 1 | Replication holds at full scale | legal-move error **0.046%** (authors' ckpt 0.017%) | `gpt_full_h200_eval.json` |
 | 2 | Board rep is **linear** in the mine/yours frame | **1.12%** err @ L7 vs **17.7%** absolute-color — a 15.8× gap | `nanda_probe_full_h200.json` |
 | 3 | The board is **causally used**, and we now know how much | 1.36 → **0.67** illegal moves; calibrated floor 0.0 / ceiling 1.39 ⇒ intervention closes **~51%** of the gap | `intervention_nanda_full_h200.json`, `floors_full_h200.json` |
-| 4 | The world model lives in **attention OV circuits**, not MLPs | OV board→board mapping ~**12× chance**, transfer matrix ~**10× diagonal**; 0 of 8 MLPs reach board_corr 0.3 | `attn_ov_board_full*.json`, `board_map_full*.json` |
-| 5 | The representation **drifts throughout training** even after it stops improving | probe cosine ep2↔ep20 = **0.53**, but cross-seed control at fixed epoch = **0.999** | `probe_transfer_full_h200.json` |
+| 4 | The representation **drifts throughout training** even after it stops improving | probe cosine ep2↔ep20 = **0.53**, but cross-seed control at fixed epoch = **0.999** | `probe_transfer_full_h200.json` |
 
 ---
 
@@ -40,9 +38,7 @@ for the entire run.
 - **Two architectures, param- and FLOP-matched**:
   - `gelu` — standard baseline.
   - `bilinear` — bilinear MLPs (Dooms et al. 2024, arXiv:2410.08417),
-    expansion 8/3. Chosen because a bilinear MLP has *no elementwise
-    nonlinearity*, so its output is an exact quadratic form → weights are
-    directly eigendecomposable.
+    expansion 8/3. A drop-in MLP replacement with no elementwise nonlinearity.
 - **Anchor**: the authors' released checkpoint, converted TransformerLens →
   minGPT, re-scored through our harness (self-check: ~0 legal-move error).
 - **Compute**: UW Hyak *klone*. Main runs on H200/A100; analysis jobs on A40.
@@ -100,69 +96,25 @@ for the entire run.
   <img alt="Horizontal bars of illegal moves in the model's top-N. Un-intervened model 1.36, sitting on the oracle ceiling of 1.39 that ignores the edit. After the board edit 0.67, roughly halfway to the oracle floor of 0.0. The edit closes 51% of the gap." src="results/figs/fig2_intervention_light.png" width="760">
 </picture>
 
-## 6. Result 4 — Bilinear vs GELU: same task error, worse-read board
+## 6. Result 4 — Bilinear MLPs: same task error, slightly worse-read board
 
-- Bilinear matches GELU on the task (0.036% vs 0.032%) but its board is
-  consistently **~2× harder to read**:
+- Bilinear matches GELU on the task (**0.036% vs 0.032%** legal-move error), so
+  the architecture swap costs nothing on the objective.
+- But its board is consistently **~2× harder to read**:
 
   | Probe | GELU | Bilinear |
   |---|---|---|
   | nonlinear @ L7 | 1.41% | 2.60% |
   | linear mine/yours @ L7 | 0.99% | 2.03% |
 
-- Nanda linearity reproduces in bilinear too (2.03% mine/yours vs 16.8%
-  absolute = 8.3× gap), so this is a *sharpness* difference, not a
-  representational-kind difference.
-- **Mechanistic explanation found later (§7.2)**: bilinear MLPs inject more
-  board-orthogonal variance and the attention board-code is less redundant
-  (9 vs 18 board-carrying heads) — so the same board is present but noisier.
+- The mine/yours linearity result of §4 reproduces in bilinear too (2.03%
+  mine/yours vs 16.8% absolute = 8.3× gap), so this is a difference in how
+  *sharply* the board is written, not in what kind of representation it is.
+- We did not pin down what drives the gap; it is reported here as an
+  observation, not an explanation.
+- Detail and the supporting per-layer numbers: `results/bilinear_comparison.md`.
 
-## 7. Result 5 — Where the world model actually lives *(the main line)*
-
-### 7.1 It is not in the MLP weights — even when the MLPs are exactly analysable
-
-- Bilinear MLPs fold into an exact quadratic form
-  `u·MLP(x) = xᵀQ_u x = Σ λᵢ(qᵢ·x)²` (identity verified to 1e-6), so we can
-  eigendecompose the MLP against any output direction.
-- **Against board directions**: at the layers where the board is *most*
-  decodable (L6–L8, ~2% probe error), the MLP's contribution to the board
-  readout is ≈ **0** (|corr| 0.029 / 0.075 / 0.008).
-- **Against the model's own legality logits** (native basis): the MLP is
-  strikingly **low-rank** — median effective rank **1.2** of 512,
-  reconstruction@2 = 0.62. The clean structure the bilinear literature predicts
-  *does* exist — but **only in the native basis**, and those legality
-  eigenfeatures are **board-anti-aligned** (0.054 vs chance 0.125).
-- Conclusion: bilinear MLPs do clean, low-rank, *corrective* work **orthogonal
-  to the board**. Imposing the board as a lens is what made prior weight-space
-  attempts look structureless.
-
-### 7.2 It is in attention — shown twice, independently
-
-- **Activation side (`board_map.py`)**: exact additive decomposition of the
-  linear mine/yours readout into embedding + all 64 heads + all 8 MLPs
-  (reconstruction corr = 1.000). Heads with board_corr > 0.3:
-  **bilinear 9/64, GELU 18/64. MLPs: 0/8** (max 0.22). The MLPs' large *share*
-  of variance (0.69 bilinear / 0.27 GELU) is board-**orthogonal**.
-- **Weight side (`attn_ov_board.py`)**: compute `W_OV = W_O W_V` as a
-  board→board map, no activations involved.
-  - Top heads map board→board at **~12× chance**.
-  - Weight-derived `io_frac` correlates **0.6–0.7** with activation-derived
-    `board_corr` across all 64 heads — two independent methods agree.
-  - The tile×tile transfer matrix is **~10× diagonal** (off-diagonal ~0.08):
-    these heads **copy tile state to the same tile** — they are
-    **board-maintenance heads**, not flip-computation heads.
-  - GELU crisper than bilinear (diagonal 11.5× vs 9.7×) — matching §6.
-- **Named circuit lead**: GELU's "h5 family" — A5.h5 / A6.h5 / A7.h5
-  (0.61 / 0.54 / 0.45); bilinear's A5.h3 / A6.h0.
-- **Headline**: the world model **is** weight-recoverable — just from attention
-  OV circuits, not from MLPs.
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="results/figs/fig5_where_dark.png">
-  <img alt="Two panels, GELU and bilinear. Each plots every component's correlation with the board readout against its layer. Attention heads (circles) reach 0.45 to 0.61 in the middle layers; 18 of 64 heads clear 0.3 in GELU and 9 of 64 in bilinear. All 8 MLPs (diamonds) sit at or below 0.22 in both architectures." src="results/figs/fig5_where_light.png" width="940">
-</picture>
-
-## 8. Result 6 — Developmental trace: when does the world model appear?
+## 7. Result 5 — Developmental trace: when does the world model appear?
 
 Probing + intervening at every 2nd epoch of a 20-epoch full run:
 
@@ -189,7 +141,7 @@ Probing + intervening at every 2nd epoch of a 20-epoch full run:
   <img alt="Two stacked panels over training epochs 0 to 20, log scale. Top: best-layer probe error falls from 22.4% at random init to 2.65% by epoch 4 and continues down to 1.12% by epoch 20. Bottom: the un-intervened and intervened illegal-move counts separate by epoch 2 and are flat from epoch 4 onward at about 1.37 versus 0.68." src="results/figs/fig3_devtrace_light.png" width="720">
 </picture>
 
-## 9. Result 7 — The representation keeps rotating *(newest result)*
+## 8. Result 6 — The representation keeps rotating *(newest result)*
 
 Probe-transfer study: train a probe on epoch *i* activations, apply it to
 epoch *j*; also compare probe directions directly.
@@ -207,31 +159,29 @@ epoch *j*; also compare probe directions directly.
   the board is written keeps slowly rotating for the whole run**. Probes are
   checkpoint-specific; "the board direction" is not a fixed object across
   training.
+- **Geometry side-note**: the 64 tile directions are **not** low-dimensional —
+  top-3 PCs explain only **9.2% (L4) / 10.0% (L7)**. No compact 3D board
+  manifold; the board is a genuinely high-rank code.
+
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="results/figs/fig4_transfer_dark.png">
   <img alt="An 11 by 11 heatmap of cosine similarity between layer-7 probe directions trained at different epochs. The diagonal is 1 by construction; values decay smoothly away from it, from 0.99 between adjacent late epochs down to 0.53 between epoch 2 and epoch 20, and about 0.02 for anything against epoch 0." src="results/figs/fig4_transfer_light.png" width="660">
 </picture>
 
-- **Geometry side-note**: the 64 tile directions are **not** low-dimensional —
-  top-3 PCs explain only **9.2% (L4) / 10.0% (L7)**. No compact 3D board
-  manifold; the board is a genuinely high-rank code.
-
 ---
 
-## 10. What this adds up to
+## 9. What this adds up to
 
 1. **Frame matters more than nonlinearity.** The original "needs a nonlinear
    probe" result dissolves under the player-relative frame.
-2. **Component matters more than architecture.** Making the MLPs bilinear
-   changed the *sharpness* of the board code, not its *location* — it was
-   already in attention.
-3. **The world model is maintenance, not computation.** OV circuits copy board
-   state forward tile-to-tile; the flip logic is not (yet) localised.
-4. **Weight-space interpretability works when you use the model's own basis.**
-   Board-lens = structureless; legality-lens = rank ~1.
-5. **Emergence is early and the refinement afterwards is causally inert.**
+2. **Causal claims need a scale.** "1.36 → 0.67" means nothing until you know
+   the oracle bounds; against them it is a real but partial (~51%) effect.
+3. **Emergence is early, and the refinement afterwards is causally inert.**
+   Probe error and causal control come apart after epoch 4.
+4. **A probe is a statement about one checkpoint.** The board stays decodable
+   while the directions encoding it keep rotating.
 
-## 11. Limitations / caveats
+## 10. Limitations / caveats
 
 - Probes are trained on held-out **synthetic** games (upstream used championship
   games). Representational question unchanged; absolute numbers not directly
@@ -246,23 +196,20 @@ epoch *j*; also compare probe directions directly.
   (117,961 positions), single seed for the model itself.
 - Everything is one model size (25.3M) on one synthetic distribution.
 
-## 12. Open threads (ranked)
+## 11. Open threads (ranked)
 
-1. **QK circuits** — we know *which* heads carry the board and *that* they copy
-   it; we don't know *which positions they read*. Do the h5-family heads attend
-   along the 8 lines through the just-played move?
-2. **Where is the flip computation?** OV off-diagonal is weak (~0.08) — flips
-   must be computed somewhere. Check whether off-diagonal structure has line
-   geometry.
-3. **Why does causal efficacy cap at ~51%** of the calibrated floor? Is the
-   remaining half a probe-quality limit or a genuine "the model also reads the
-   board from elsewhere" effect?
-4. **Mid-layer (L5–L7) unembed-mode eigendecomposition** via propagated output
-   directions — the native-basis trick only ran on L8.
-5. **Multi-seed models** to test whether the rotation in §9 converges to a
-   seed-independent endpoint.
+1. **Why does causal efficacy cap at ~51%** of the calibrated floor? Is the
+   remaining half a probe-quality limit, or does the model also read the board
+   from somewhere the edit doesn't reach?
+2. **Multi-seed models** to test whether the rotation in §8 converges to a
+   seed-independent endpoint, or is genuinely seed-specific.
+3. **Does the rotation have structure?** It is smooth and monotone — worth
+   checking whether it is drift along a low-dimensional manifold or diffuse.
+4. **What makes the bilinear board less sharp** at equal task error (§6).
+5. **Championship-game track** to make the numbers directly comparable to the
+   paper's.
 
-## 13. Reproduction map
+## 12. Reproduction map
 
 | Result | Code | Job | Output |
 |---|---|---|---|
@@ -272,26 +219,29 @@ epoch *j*; also compare probe directions directly.
 | Mine/yours probe | `src/nanda_probe.py` | `slurm/nanda_probe.slurm` | `nanda_probe_*.json` |
 | Intervention | `src/intervene_nanda.py` | `slurm/intervene_nanda.slurm` | `intervention_nanda_*.json` |
 | Floors/calibration | `src/entropy_floor.py` | `slurm/entropy_floor.slurm` | `floors_full_h200.json` |
-| Bilinear eigendecomp | `src/bilinear_eigen.py` | `slurm/bilinear_eigen.slurm` | `bilinear_eigen_*.json` |
-| Board decomposition | `src/board_map.py` | `slurm/board_map.slurm` | `board_map_*.json` |
-| OV circuits | `src/attn_ov_board.py` | `slurm/attn_ov_board.slurm` | `attn_ov_board_*.json` |
 | Developmental study | `src/dev_study.py` | `slurm/dev_study_full_h200.slurm` | `dev_study_full_h200.json` |
 | Probe transfer | `src/probe_transfer.py` | `slurm/probe_transfer.slurm` | `probe_transfer_full_h200.json` |
 | Probe geometry | `src/probe_directions.py` | `slurm/probe_directions.slurm` | `probe_pca3d_full_h200.json` |
 | Report figures | `src/report_figs.py` | `slurm/report_figs.slurm` | `results/figs/*.png` |
 
 Longer-form writeups: `results/nanda_linear_probe.md`,
-`results/bilinear_comparison.md`, `results/weight_space_interpretability.md`.
+`results/bilinear_comparison.md`.
 
-**Figures.** The five above are regenerated from the result JSONs by
+**Figures.** The four above are regenerated from the result JSONs by
 `sbatch slurm/report_figs.slurm` (light + dark variants; the report serves each
 via `<picture>`). Additional per-study plots already in `results/`:
-`attn_ov_board_full*_transfer.png` (the 64×64 OV tile→tile transfer matrices),
-`bilinear_eigen_full_bilinear_{spectra,effrank,recon}.png`,
-`board_map_full{,_bilinear}.png`, `nanda_probe_full*.png`,
-`probe_transfer_full_h200_L{4,7}.png`, `dev_study_full_h200.png`.
+`nanda_probe_full*.png`, `probe_transfer_full_h200_L{4,7}.png`,
+`dev_study_full_h200.png`.
 
-## 14. References
+**Side analyses not part of this study.** The repo also contains a
+component-attribution / weight-space thread (`src/board_map.py`,
+`src/attn_ov_board.py`, `src/bilinear_eigen.py` and their outputs, written up in
+`results/weight_space_interpretability.md`). It is kept for reference and is not
+claimed as a result here: that the board is carried by attention rather than the
+position-wise MLPs is close to definitional, since attention is the only
+component that moves information across tokens.
+
+## 13. References
 
 - Li et al. 2023, *Emergent World Representations* — arXiv:2210.13382
 - Nanda et al. 2023, *Emergent Linear Representations in World Models*
