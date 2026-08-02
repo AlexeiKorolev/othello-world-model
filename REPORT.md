@@ -110,7 +110,21 @@ board measurably harder to read.
 - The mine/yours linearity result of §4 reproduces in bilinear too (2.03%
   mine/yours vs 16.8% absolute = 8.3× gap), so this is a difference in how
   *sharply* the board is written, not in what kind of representation it is.
-- We did not pin down what drives the gap; it is reported here as an
+- **The board code is about half as redundant under bilinear.** Decomposing the
+  linear mine/yours readout over all 64 attention heads, the number that
+  correlate with it at **> 0.3** is:
+
+  | | GELU | Bilinear |
+  |---|---|---|
+  | heads with board_corr > 0.3 | **18 / 64** | **9 / 64** |
+  | strongest heads | A5.h5 0.61, A6.h5 0.54, A7.h5 0.45 | A5.h3 0.58, A6.h0 0.57, A5.h6 0.36 |
+
+  The *peak* is essentially unchanged (0.61 vs 0.58) — bilinear is not missing a
+  strong board signal, it just spreads it over half as many heads. That the
+  sparser code is also the harder-to-read one is suggestive, but with one seed
+  per architecture it is a correlation between two numbers, not a demonstrated
+  cause. Source: `board_map_full{,_bilinear}.json`.
+- We did not pin down what drives the readability gap; it is reported here as an
   observation, not an explanation.
 - Detail and the supporting per-layer numbers: `results/bilinear_comparison.md`.
 
@@ -222,6 +236,7 @@ epoch *j*; also compare probe directions directly.
 | Developmental study | `src/dev_study.py` | `slurm/dev_study_full_h200.slurm` | `dev_study_full_h200.json` |
 | Probe transfer | `src/probe_transfer.py` | `slurm/probe_transfer.slurm` | `probe_transfer_full_h200.json` |
 | Probe geometry | `src/probe_directions.py` | `slurm/probe_directions.slurm` | `probe_pca3d_full_h200.json` |
+| Board-code redundancy (§6) | `src/board_map.py` | `slurm/board_map.slurm` | `board_map_full{,_bilinear}.json` |
 | Report figures | `src/report_figs.py` | `slurm/report_figs.slurm` | `results/figs/*.png` |
 
 Longer-form writeups: `results/nanda_linear_probe.md`,
@@ -234,12 +249,14 @@ via `<picture>`). Additional per-study plots already in `results/`:
 `dev_study_full_h200.png`.
 
 **Side analyses not part of this study.** The repo also contains a
-component-attribution / weight-space thread (`src/board_map.py`,
-`src/attn_ov_board.py`, `src/bilinear_eigen.py` and their outputs, written up in
-`results/weight_space_interpretability.md`). It is kept for reference and is not
-claimed as a result here: that the board is carried by attention rather than the
-position-wise MLPs is close to definitional, since attention is the only
-component that moves information across tokens.
+weight-space thread (`src/attn_ov_board.py`, `src/bilinear_eigen.py` and their
+outputs, written up in `results/weight_space_interpretability.md`). It is kept
+for reference and is not claimed as a result here: that the board is carried by
+attention rather than the position-wise MLPs is close to definitional, since
+attention is the only component that moves information across tokens. §6 uses
+the same decomposition only to *count* board-carrying heads across the two
+architectures, which is a claim about the architecture swap, not about where the
+board lives.
 
 ## 13. References
 
