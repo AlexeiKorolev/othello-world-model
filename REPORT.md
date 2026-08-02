@@ -182,6 +182,38 @@ epoch *j*; also compare probe directions directly.
   <img alt="An 11 by 11 heatmap of cosine similarity between layer-7 probe directions trained at different epochs. The diagonal is 1 by construction; values decay smoothly away from it, from 0.99 between adjacent late epochs down to 0.53 between epoch 2 and epoch 20, and about 0.02 for anything against epoch 0." src="results/figs/fig4_transfer_light.png" width="660">
 </picture>
 
+### 8.1 How much of the collapse is real? *(raw / global / pertile)*
+
+Transfer error alone can't separate "the probe is aimed wrong" from "the probe
+is aimed fine but its outputs come out at the wrong scale" — the residual stream
+grows during training. So each stale probe is scored three ways, each of which
+only ever **rescales** its output and never re-aims it: `raw` (untouched),
+`global` (one gain + three class offsets, 4 params), `pertile` (per-tile gain +
+offsets, 256 params). Whatever error survives `pertile` is genuine drift.
+
+| L7, probe → activations | raw | global | pertile | own-epoch |
+|---|---|---|---|---|
+| ep2 → ep20 | 15.2% | 14.8% | **8.3%** | 1.10% |
+| ep20 → ep2 | 26.3% | 15.4% | **10.6%** | 5.12% |
+| mean off-diag (ep ≥ 2) | 6.9% | 5.2% | **3.5%** | — |
+
+- **Most of the apparent collapse is rescaling** — ep20→ep2 halves from 26.3% to
+  10.6% under recalibration. Reports of "~50% error on raw logits" are mostly a
+  scale artefact and shouldn't be quoted as drift.
+- **What survives is still large**: 8.3% vs a native 1.10% is ~8× the own-epoch
+  error, and ~300× the same-epoch seed-control spread. The rotation is real.
+- **The decay is asymmetric.** A late probe read backwards is worse than an early
+  probe read forwards (26.3% vs 15.2% raw) — the cosine matrix is symmetric by
+  construction and hides this. Late probes are *more* specialised to their own
+  checkpoint than early ones are.
+- **Epoch 0 is the control** and behaves as it must: ~42% under every correction,
+  i.e. recalibration cannot rescue a probe that was never aimed at anything.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="results/figs/fig5_transfererr_dark.png">
+  <img alt="Three 11 by 11 heatmaps of layer-7 probe decode error on a shared log color scale, for the raw, global and per-tile corrections. In all three the diagonal is lowest, around 1.1 percent at late epochs, and error grows away from it. Moving from raw to per-tile shrinks the off-diagonal values substantially, for example epoch 20 applied to epoch 2 falls from 26 percent to 11 percent, but the off-diagonal never approaches the diagonal. The epoch 0 row and column stay near 42 to 59 percent throughout." src="results/figs/fig5_transfererr_light.png" width="940">
+</picture>
+
 ---
 
 ## 9. What this adds up to
