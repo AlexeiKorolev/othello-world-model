@@ -259,12 +259,17 @@ if __name__ == "__main__":
     p = argparse.ArgumentParser()
     p.add_argument("--results", default="../results")
     p.add_argument("--out", default="../results/figs")
+    p.add_argument("--dpi", type=float, default=None,
+                   help="override figure dpi (lighter files for upload)")
+    p.add_argument("--themes", default="light,dark")
     a = p.parse_args()
     os.makedirs(a.out, exist_ok=True)
-    for tag, theme in THEMES.items():
-        T = theme
+    for tag in a.themes.split(","):
+        theme = THEMES[tag]
         globals()["T"] = theme
         style(theme)
+        if a.dpi:
+            plt.rcParams["figure.dpi"] = a.dpi
         fig_linearity(a.results, a.out, tag)
         fig_intervention(a.results, a.out, tag)
         fig_dev(a.results, a.out, tag)

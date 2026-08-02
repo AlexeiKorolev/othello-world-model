@@ -1,4 +1,4 @@
 data/
 env/
 ckpts/
-*.pyc
+*.pycresults/figs_web/
