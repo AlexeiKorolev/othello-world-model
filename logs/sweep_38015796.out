@@ -1,0 +1,18 @@
+==== train_sweep ====
+Job 38015796 on g3052  Start: Sun Aug  2 03:22:02 PDT 2026
+n_games=2000000 presentations=40000000 batch=1024 tag=sweep_n2000000
+[train] SWEEP: 2000000 train games (from 230 shards) / 10000 fixed val
+Dataset created has 2000000 sequences, 61 unique words.
+[train] SWEEP: 40000000 presentations / 2000000 games -> 20 epochs
+[train] profile=full epochs=20 batch_size=1024 gpus=1
+[resume] completed epoch 3/20; state saved
+[resume] completed epoch 6/20; state saved
+[resume] completed epoch 9/20; state saved
+[resume] completed epoch 12/20; state saved
+[resume] completed epoch 15/20; state saved
+[resume] completed epoch 18/20; state saved
+[resume] completed epoch 20/20; state saved
+[train] all epochs done in this/earlier chunks -> /mmfs1/home/jdfelo/BilinearOthelloGPT/ckpts/gpt_synthetic_sweep_n2000000.ckpt
+[train] LEGAL-MOVE ERROR = 0.1052%  (58889/58951 legal)
+[train] wrote /mmfs1/home/jdfelo/BilinearOthelloGPT/results/gpt_sweep_n2000000_eval.json
+Finished rc=0: Sun Aug  2 05:40:46 PDT 2026

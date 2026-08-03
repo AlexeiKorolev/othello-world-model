@@ -133,29 +133,48 @@ class ResumableTrainer:
                 lr = config.learning_rate
             pbar.set_description(f"epoch {epoch+1} iter {it}: loss {loss.item():.5f} lr {lr:e}")
 
-    def train(self, wall_budget_sec=None):
+    def train(self, wall_budget_sec=None, save_every_sec=None):
+        """save_every_sec: minimum seconds between intermediate state saves. None
+        saves every epoch (the default, unchanged). The final epoch and the
+        pre-pause save are always written, so resume behaviour is identical --
+        this only thins intermediate saves for runs with very short epochs."""
         raw = self._raw()
         optimizer = raw.configure_optimizers(self.config)
         self.maybe_resume(optimizer)
 
         t0 = time.time()
         ran = 0
+        last_save = time.time()
         epoch = self.start_epoch
         while epoch < self.config.max_epochs:
             self._run_epoch(optimizer, epoch)
             epoch += 1
             ran += 1
-            self.save_state(optimizer, epoch)
-            print(f"[resume] completed epoch {epoch}/{self.config.max_epochs}; state saved",
-                  flush=True)
-            if epoch >= self.config.max_epochs:
-                return True
-            if wall_budget_sec is not None:
+
+            final = epoch >= self.config.max_epochs
+            pausing = False
+            if not final and wall_budget_sec is not None:
                 elapsed = time.time() - t0
                 per_epoch = elapsed / ran
-                if elapsed + 1.2 * per_epoch > wall_budget_sec:
-                    print(f"[resume] wall budget reached (elapsed {elapsed/3600:.2f}h, "
-                          f"~{per_epoch/3600:.2f}h/epoch); pausing after epoch {epoch}",
-                          flush=True)
-                    return False
+                pausing = elapsed + 1.2 * per_epoch > wall_budget_sec
+
+            due = (save_every_sec is None
+                   or time.time() - last_save >= save_every_sec)
+            if final or pausing or due:
+                self.save_state(optimizer, epoch)
+                last_save = time.time()
+                print(f"[resume] completed epoch {epoch}/{self.config.max_epochs}; "
+                      f"state saved", flush=True)
+            elif epoch % 50 == 0:
+                print(f"[resume] completed epoch {epoch}/{self.config.max_epochs}",
+                      flush=True)
+
+            if final:
+                return True
+            if pausing:
+                elapsed = time.time() - t0
+                print(f"[resume] wall budget reached (elapsed {elapsed/3600:.2f}h, "
+                      f"~{elapsed/ran/3600:.4f}h/epoch); pausing after epoch {epoch}",
+                      flush=True)
+                return False
         return True

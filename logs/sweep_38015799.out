@@ -1,0 +1,33 @@
+==== train_sweep ====
+Job 38015799 on g3050  Start: Sun Aug  2 03:55:32 PDT 2026
+n_games=63000 presentations=40000000 batch=1024 tag=sweep_n63000
+[train] SWEEP: 63000 train games (from 230 shards) / 10000 fixed val
+Dataset created has 63000 sequences, 61 unique words.
+[train] SWEEP: 40000000 presentations / 63000 games -> 635 epochs
+[train] profile=full epochs=635 batch_size=1024 gpus=1
+[resume] completed epoch 50/635
+[resume] completed epoch 59/635; state saved
+[resume] completed epoch 100/635
+[resume] completed epoch 129/635; state saved
+[resume] completed epoch 150/635
+[resume] completed epoch 199/635; state saved
+[resume] completed epoch 200/635
+[resume] completed epoch 250/635
+[resume] completed epoch 269/635; state saved
+[resume] completed epoch 300/635
+[resume] completed epoch 339/635; state saved
+[resume] completed epoch 350/635
+[resume] completed epoch 400/635
+[resume] completed epoch 409/635; state saved
+[resume] completed epoch 450/635
+[resume] completed epoch 479/635; state saved
+[resume] completed epoch 500/635
+[resume] completed epoch 549/635; state saved
+[resume] completed epoch 550/635
+[resume] completed epoch 600/635
+[resume] completed epoch 618/635; state saved
+[resume] completed epoch 635/635; state saved
+[train] all epochs done in this/earlier chunks -> /mmfs1/home/jdfelo/BilinearOthelloGPT/ckpts/gpt_synthetic_sweep_n63000.ckpt
+[train] LEGAL-MOVE ERROR = 4.8837%  (56072/58951 legal)
+[train] wrote /mmfs1/home/jdfelo/BilinearOthelloGPT/results/gpt_sweep_n63000_eval.json
+Finished rc=0: Sun Aug  2 06:24:02 PDT 2026

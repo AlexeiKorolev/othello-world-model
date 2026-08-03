@@ -1,0 +1,12 @@
+{
+  "profile": "full",
+  "arch": "gelu",
+  "tag": "sweep_n63000",
+  "n_train_games": 63000,
+  "presentations": 40000000,
+  "expansion": null,
+  "legal_move_error": 0.04883716985292874,
+  "legal": 56072,
+  "total": 58951,
+  "ckpt": "/mmfs1/home/jdfelo/BilinearOthelloGPT/ckpts/gpt_synthetic_sweep_n63000.ckpt"
+}

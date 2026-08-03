@@ -1,0 +1,61 @@
+==== train_sweep ====
+Job 38015800 on g3051  Start: Sun Aug  2 04:07:09 PDT 2026
+n_games=20000 presentations=40000000 batch=1024 tag=sweep_n20000
+[train] SWEEP: 20000 train games (from 230 shards) / 10000 fixed val
+Dataset created has 20000 sequences, 61 unique words.
+[train] SWEEP: 40000000 presentations / 20000 games -> 2000 epochs
+[train] profile=full epochs=2000 batch_size=1024 gpus=1
+[resume] completed epoch 50/2000
+[resume] completed epoch 100/2000
+[resume] completed epoch 150/2000
+[resume] completed epoch 161/2000; state saved
+[resume] completed epoch 200/2000
+[resume] completed epoch 250/2000
+[resume] completed epoch 300/2000
+[resume] completed epoch 350/2000
+[resume] completed epoch 356/2000; state saved
+[resume] completed epoch 400/2000
+[resume] completed epoch 450/2000
+[resume] completed epoch 500/2000
+[resume] completed epoch 550/2000
+[resume] completed epoch 551/2000; state saved
+[resume] completed epoch 600/2000
+[resume] completed epoch 650/2000
+[resume] completed epoch 700/2000
+[resume] completed epoch 745/2000; state saved
+[resume] completed epoch 750/2000
+[resume] completed epoch 800/2000
+[resume] completed epoch 850/2000
+[resume] completed epoch 900/2000
+[resume] completed epoch 940/2000; state saved
+[resume] completed epoch 950/2000
+[resume] completed epoch 1000/2000
+[resume] completed epoch 1050/2000
+[resume] completed epoch 1100/2000
+[resume] completed epoch 1135/2000; state saved
+[resume] completed epoch 1150/2000
+[resume] completed epoch 1200/2000
+[resume] completed epoch 1250/2000
+[resume] completed epoch 1300/2000
+[resume] completed epoch 1330/2000; state saved
+[resume] completed epoch 1350/2000
+[resume] completed epoch 1400/2000
+[resume] completed epoch 1450/2000
+[resume] completed epoch 1500/2000
+[resume] completed epoch 1524/2000; state saved
+[resume] completed epoch 1550/2000
+[resume] completed epoch 1600/2000
+[resume] completed epoch 1650/2000
+[resume] completed epoch 1700/2000
+[resume] completed epoch 1720/2000; state saved
+[resume] completed epoch 1750/2000
+[resume] completed epoch 1800/2000
+[resume] completed epoch 1850/2000
+[resume] completed epoch 1900/2000
+[resume] completed epoch 1916/2000; state saved
+[resume] completed epoch 1950/2000
+[resume] completed epoch 2000/2000; state saved
+[train] all epochs done in this/earlier chunks -> /mmfs1/home/jdfelo/BilinearOthelloGPT/ckpts/gpt_synthetic_sweep_n20000.ckpt
+[train] LEGAL-MOVE ERROR = 5.6895%  (55597/58951 legal)
+[train] wrote /mmfs1/home/jdfelo/BilinearOthelloGPT/results/gpt_sweep_n20000_eval.json
+Finished rc=0: Sun Aug  2 06:53:29 PDT 2026

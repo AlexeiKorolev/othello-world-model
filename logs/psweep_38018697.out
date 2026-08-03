@@ -1,0 +1,39 @@
+==== probe_sweep ====
+Job 38018697 on g3054  Start: Sun Aug  2 11:19:33 PDT 2026
+tag=sweep_n2000000 ckpt=/mmfs1/home/jdfelo/BilinearOthelloGPT/ckpts/gpt_synthetic_sweep_n2000000.ckpt
+---- nanda_probe ----
+[nanda] loaded /mmfs1/home/jdfelo/BilinearOthelloGPT/ckpts/gpt_synthetic_sweep_n2000000.ckpt
+[nanda] extracted 117961 positions x 64 tiles in 24s
+[nanda] layer 1: linear mine/yours 10.77%  linear absolute 19.03%
+[nanda] layer 2: linear mine/yours 7.87%  linear absolute 18.41%
+[nanda] layer 3: linear mine/yours 5.34%  linear absolute 17.93%
+[nanda] layer 4: linear mine/yours 3.85%  linear absolute 17.94%
+[nanda] layer 5: linear mine/yours 2.66%  linear absolute 17.34%
+[nanda] layer 6: linear mine/yours 2.24%  linear absolute 17.31%
+[nanda] layer 7: linear mine/yours 2.18%  linear absolute 17.40%
+[nanda] layer 8: linear mine/yours 2.19%  linear absolute 17.43%
+[nanda] best linear mine/yours: layer 7 err 2.18%  -> /mmfs1/home/jdfelo/BilinearOthelloGPT/results/nanda_probe_sweep_n2000000.json
+[nanda] wrote /mmfs1/home/jdfelo/BilinearOthelloGPT/results/nanda_probe_sweep_n2000000.png
+---- ood_eval ----
+[ood] loaded /mmfs1/home/jdfelo/BilinearOthelloGPT/ckpts/gpt_synthetic_sweep_n2000000.ckpt on cuda
+
+[ood] === suite 1: orientation ===
+[ood] identity err = 0.3052%  (17694 positions)
+[ood] identity   legal=1.000  err= 0.3052%  tv=0.0000  argmax_agree=100.00%  in-dist
+[ood] rot90      legal=0.000  err= 7.2454%  tv=0.1766  argmax_agree= 17.10%  COLOUR-SWAPPED (ood)
+[ood] rot180     legal=1.000  err= 0.3447%  tv=0.0559  argmax_agree= 20.85%  in-dist
+[ood] rot270     legal=0.000  err= 6.9346%  tv=0.1673  argmax_agree= 18.16%  COLOUR-SWAPPED (ood)
+[ood] flip_h     legal=0.000  err= 8.5396%  tv=0.1696  argmax_agree= 19.11%  COLOUR-SWAPPED (ood)
+[ood] flip_v     legal=0.000  err= 7.3189%  tv=0.1728  argmax_agree= 16.90%  COLOUR-SWAPPED (ood)
+[ood] transpose  legal=1.000  err= 0.3108%  tv=0.0556  argmax_agree= 19.71%  in-dist
+[ood] antitrans  legal=1.000  err= 0.4013%  tv=0.0551  argmax_agree= 18.91%  in-dist
+
+[ood] === suite 2: policy shift ===
+[ood] uniform       err=0.2938%  mean_len=60.0  mean_legal=8.55
+[ood] max_flip      err=0.2656%  mean_len=60.0  mean_legal=8.58
+[ood] min_flip      err=0.2825%  mean_len=60.0  mean_legal=8.56
+[ood] corner_first  err=1.4087%  mean_len=59.9  mean_legal=6.47
+[ood] edge_avoid    err=0.1587%  mean_len=59.8  mean_legal=10.05
+
+[ood] wrote /mmfs1/home/jdfelo/BilinearOthelloGPT/bag_of_heuristics/results/ood_eval_sweep_n2000000.json
+Finished: Sun Aug  2 11:59:26 PDT 2026
